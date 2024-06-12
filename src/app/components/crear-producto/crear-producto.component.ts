@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Producto } from 'src/app/models/producto';
 
 @Component({
   selector: 'app-crear-producto',
@@ -12,7 +14,8 @@ export class CrearProductoComponent {
   selectedFile: File | null = null;
   selectedFileUrl: string | ArrayBuffer | null = null;
 
-  constructor(private fb:FormBuilder){
+  constructor(private fb:FormBuilder,
+    private router: Router) {
     this.productoForm=this.fb.group({
       producto: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -24,7 +27,19 @@ export class CrearProductoComponent {
   }
 
   agregarProducto(){
-    console.log(this.productoForm)
+    console.log(this.productoForm);
+    console.log(this.productoForm.get('producto')?.value);
+
+    const PRODUCTO: Producto = {
+      nombre:this.productoForm.get('producto')?.value,
+      descripcion:this.productoForm.get('descripcion')?.value,
+      categoria:this.productoForm.get('categoria')?.value,
+      precio:this.productoForm.get('precio')?.value,
+      stock:this.productoForm.get('stock')?.value,
+      imagen:this.productoForm.get('imagen')?.value,
+    }
+    console.log(PRODUCTO);
+    this.router.navigate(['/listar-productos'])
   }
 
   onFileSelected(event: any): void {
