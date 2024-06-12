@@ -1,36 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="card">
                     <div class="card-body text-center">
                         <span class="titulo">CREAR PRODUCTO</span>
-                        <form class="row g-3 mt-3">
+                        <form class="row g-3 mt-3" [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
                             <div class="col-md-6 ">
-                                <input type="text" class="form-control" placeholder="Producto">
+                                <input type="text" formControlName="producto" class="form-control" placeholder="Producto">
+                                <div class="text-danger" *ngIf="productoForm.get('producto')?.hasError('required') && productoForm.get('producto')?.touched">
+                                    <span>El nombre del producto <strong>es obligatorio</strong></span>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Categoria">
+                                <input type="text" formControlName="categoria" class="form-control" placeholder="Categoria">
+                                <div class="text-danger" *ngIf="productoForm.get('categoria')?.hasError('required') && productoForm.get('categoria')?.touched">
+                                    <span>La categoria del producto<strong> es obligatorio</strong></span>
+                                </div>
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control" placeholder="Descripcion">
+                                <input type="text" formControlName="descripcion" class="form-control" placeholder="Descripcion">
+                                <div class="text-danger" *ngIf="productoForm.get('descripcion')?.hasError('required') && productoForm.get('descripcion')?.touched">
+                                    <span class="float-start">La descripcion del producto <strong>es obligatorio</strong></span>
+                                </div>
                             </div>
                             <div class="col-md-6 ">
-                                <input type="number" class="form-control" placeholder="Precio">
+                                <input type="number" formControlName="precio" class="form-control" placeholder="Precio">
+                                <div class="text-danger" *ngIf="productoForm.get('precio')?.hasError('required')  && productoForm.get('precio')?.touched">
+                                    <span>El precio del producto <strong>es obligatorio</strong></span>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" class="form-control" placeholder="Stock">
+                                <input type="number" formControlName="stock" class="form-control" placeholder="Stock">
+                                <div class="text-danger" *ngIf="productoForm.get('stock')?.hasError('required')  && productoForm.get('stock')?.touched">
+                                    <span class="float-start">El stock del producto <strong>es obligatorio</strong></span>
+                                </div>
                             </div>
+                            <div class="mb-3">
+                                <input type="file" (change)="onFileSelected($event)" formControlName="imagen" class="form-control" id="imagen" accept="image/*">
+                            </div>
+                            <div *ngIf="selectedFileUrl">
+                                <img [src]="selectedFileUrl" alt="Vista previa de la imagen" class="img-thumbnail">
+                              </div>
                             <div class="d-grid gap-2">
-                                <button routerLink="/listar-productos" type="submit" class="btn btn-success">AGREGAR PRODUCTO</button>
-                                <button routerLink="/listar-productos" type="submit" class="btn btn-secondary">VOLVER</button>
+                                <button type="submit" [disabled]="productoForm.invalid" class="btn btn-success">AGREGAR PRODUCTO</button>
+                                <button routerLink="/listar-productos" class="btn btn-secondary">VOLVER</button>
                             </div>  
                         </form>
                     </div>
@@ -38,5 +52,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+
