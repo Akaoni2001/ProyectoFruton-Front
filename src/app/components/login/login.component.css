@@ -1,0 +1,22 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 30%;
+
+  }
+
+  .form-container img {
+    width: 50%; /* Ajusta el ancho de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block;
+    margin: 0 auto 20px; /* Centra la imagen y añade un margen inferior */
+}

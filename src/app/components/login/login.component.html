@@ -1,1 +1,32 @@
-<p>login works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="centered-container">
+        <div class="form-container">
+            <form>
+                <img src="assets\fotos\2ff139fb-7a85-4d6c-8c62-6d874374d095-removebg-preview.png"  alt="...">
+                <h1 class="titulo text-center">Inicio de sesion</h1>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Correo electronico</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ejemplo@gmail.com">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="********">
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="form-text">Olvidaste tu contraseña?</a>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button routerLink="/listar-productos" type="submit" class="btn btn-success">INGRESAR</button>
+                </div>      
+              </form>
+        </div>
+    </div>
+</body>
+</html>
