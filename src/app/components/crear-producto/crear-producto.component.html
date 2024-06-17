@@ -4,7 +4,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="card">
                     <div class="card-body text-center">
-                        <span class="titulo">CREAR PRODUCTO</span>
+                        <span class="titulo">{{titulo | uppercase}}</span>
                         <form class="row g-3 mt-3" [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
                             <div class="col-md-6 ">
                                 <input type="text" formControlName="producto" class="form-control" placeholder="Producto">
@@ -43,7 +43,7 @@
                                 <img [src]="selectedFileUrl" alt="Vista previa de la imagen" class="img-thumbnail">
                               </div>
                             <div class="d-grid gap-2">
-                                <button type="submit" [disabled]="productoForm.invalid" class="btn btn-success">AGREGAR PRODUCTO</button>
+                                <button type="submit" [disabled]="productoForm.invalid" class="btn btn-success">ACEPTAR</button>
                                 <button routerLink="/listar-productos" class="btn btn-secondary">VOLVER</button>
                             </div>  
                         </form>

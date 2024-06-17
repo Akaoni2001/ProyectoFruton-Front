@@ -5,7 +5,7 @@
                 <div class="card-body text-center">
                     <span class="titulo">LISTADO DE PRODUCTOS</span>
                     <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
-                    <table class="table table-striped mt-2">
+                    <table *ngIf="listProductos.length > 0" class="table table-striped mt-2">
                         <thead>
                           <tr>
                             <th scope="col">Producto</th>
@@ -17,41 +17,21 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>  
-                            <td>Cremolada de Fresa</td>
-                            <td>Bebida refrescante de frutas naturales</td>
-                            <td>Bebidas frías</td>
-                            <td>S/6.00</td>
-                            <td>30</td>
+                          <tr *ngFor="let producto of listProductos">  
+                            <td>{{ producto.nombre}}</td>
+                            <td>{{ producto.descripcion}}</td>
+                            <td>{{ producto.categoria}}</td>
+                            <td>{{ producto.precio}}</td>
+                            <td>{{ producto.stock}}</td>
                             <td>
-                                <i class="fas fa-solid fa-pen-to-square text-primary"></i>
-                                <i class="fas fa-solid fa-trash text-danger"></i>
+                                <i [routerLink]="['/editar-producto', producto._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
+                                <i (click)="eliminarProducto(producto._id)" class="fas fa-solid fa-trash text-danger"></i>
                             </td>
                           </tr>
-                          <tr>
-                            <td>Cremolada de Fresa</td>
-                            <td>Bebida refrescante de frutas naturales</td>
-                            <td>Bebidas frías</td>
-                            <td>S/6.00</td>
-                            <td>30</td>
-                            <td>
-                                <i class="fas fa-solid fa-pen-to-square text-primary"></i>
-                                <i class="fas fa-solid fa-trash text-danger"></i>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Cremolada de Fresa</td>
-                            <td>Bebida refrescante de frutas naturales</td>
-                            <td>Bebidas frías</td>
-                            <td>S/6.00</td>
-                            <td>30</td>
-                            <td>
-                                <i class="fas fa-solid fa-pen-to-square text-primary"></i>
-                                <i class="fas fa-solid fa-trash text-danger"></i>
-                            </td>
-                          </tr>
+          
                         </tbody>
                     </table>
+                    <h5 style="text-align: start; margin-top: 10px;" *ngIf="listProductos.length == 0">No hay productos para mostrar</h5>
                 </div>
             </div>
         </div>

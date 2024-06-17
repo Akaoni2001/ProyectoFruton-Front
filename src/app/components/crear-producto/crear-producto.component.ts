@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-crear-producto',
@@ -11,11 +12,16 @@ import { Producto } from 'src/app/models/producto';
 export class CrearProductoComponent {
 
   productoForm: FormGroup;
+  titulo='Crear producto';
+  id:string | null;
+
   selectedFile: File | null = null;
   selectedFileUrl: string | ArrayBuffer | null = null;
 
   constructor(private fb:FormBuilder,
-    private router: Router) {
+    private router: Router,
+    private _productoService:ProductoService,
+    private aRouter: ActivatedRoute) {
     this.productoForm=this.fb.group({
       producto: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -24,6 +30,11 @@ export class CrearProductoComponent {
       stock: ['', Validators.required],
       imagen: ['', Validators.required]
     });
+    this.id = this.aRouter.snapshot.paramMap.get('id');
+  }
+
+  ngOnInit():void{
+    this.esEditar();
   }
 
   agregarProducto(){
@@ -38,8 +49,41 @@ export class CrearProductoComponent {
       stock:this.productoForm.get('stock')?.value,
       imagen:this.productoForm.get('imagen')?.value,
     }
-    console.log(PRODUCTO);
-    this.router.navigate(['/listar-productos'])
+
+    if(this.id !==null){
+      //editamos producto
+        this._productoService.editarProducto(this.id, PRODUCTO).subscribe(data=>{
+        this.router.navigate(['/listar-productos']);
+      },error=>{
+        console.log(error);
+        this.productoForm.reset();
+      })
+    } else{
+      //agregamos producto
+        console.log(PRODUCTO);
+        this._productoService.guardarProducto(PRODUCTO).subscribe(data=>{
+        this.router.navigate(['/listar-productos']);
+        },error=>{
+          console.log(error);
+          this.productoForm.reset();
+        })
+    } 
+  }
+
+  esEditar(){
+    if(this.id !== null){
+      this.titulo= 'Editar producto';
+      this._productoService.obtenerProducto(this.id).subscribe(data=>{
+        this.productoForm.setValue({
+          producto: data.nombre,
+          descripcion: data.descripcion,
+          categoria: data.categoria,
+          precio: data.precio,
+          stock: data.stock,
+          imagen: data.imagen
+        })
+      })
+    }
   }
 
   onFileSelected(event: any): void {

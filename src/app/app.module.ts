@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule} from '@angular/common/http';
 
 //Componentes
 import { AppComponent } from './app.component';
@@ -26,7 +27,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     BrowserModule,
     RouterModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
