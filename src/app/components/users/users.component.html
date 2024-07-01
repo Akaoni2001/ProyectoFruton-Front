@@ -1,0 +1,45 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+      <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <span class="titulo">LISTA DE USUARIOS</span>
+                        <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
+                        <table *ngIf="listUsers.length > 0" class="table table-striped mt-2">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Role</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let usuario of listUsers">  
+                                <td>{{ usuario.nombres}}</td>
+                                <td>{{ usuario.apellidos}}</td>
+                                <td>{{ usuario.email}}</td>
+                                <td>{{ usuario.role}}</td>
+                                <td>
+                                    <i [routerLink]="['/editar-producto', usuario._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
+                                    <i (click)="eliminarUser(usuario._id)" class="fas fa-solid fa-trash text-danger"></i>
+                                </td>
+                              </tr>
+              
+                            </tbody>
+                        </table>
+                        <h5 style="text-align: start; margin-top: 10px;" *ngIf="listUsers.length == 0">No hay productos para mostrar</h5>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    </div>
+  </div>
+  
+  
