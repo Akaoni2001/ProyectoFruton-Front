@@ -14,6 +14,7 @@ import { ListarProductosComponent } from './components/listar-productos/listar-p
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { UsersComponent } from './components/users/users.component';
+import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 
 
 
@@ -28,7 +29,8 @@ import { UsersComponent } from './components/users/users.component';
     ListarProductosComponent,
     SidenavComponent,
     CatalogoComponent,
-    UsersComponent
+    UsersComponent,
+    CrearUsuarioComponent
   ],
   imports: [
     BrowserModule,

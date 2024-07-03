@@ -27,4 +27,8 @@ export class UserService {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.delete(`${this.url}/usuario/eliminar/${id}`, { headers });
   }
+  registrar(data: any): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(`${this.url}/registrar`, data, { headers: headers });
+  }
 }

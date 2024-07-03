@@ -5,6 +5,7 @@ import { ListarProductosComponent } from './components/listar-productos/listar-p
 import { CrearProductoComponent } from './components/crear-producto/crear-producto.component';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { UsersComponent } from './components/users/users.component';
+import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'editar-producto/:id', component:CrearProductoComponent},
   {path:'catalogo', component:CatalogoComponent},
   {path:'usuarios', component:UsersComponent},
+  {path:'crear-usuario', component:CrearUsuarioComponent},
   {path:'**', redirectTo: '', pathMatch: 'full'}
 
 ];
