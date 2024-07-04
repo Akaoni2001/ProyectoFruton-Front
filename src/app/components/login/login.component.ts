@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             response => {
               console.log('User identity response:', response);
               localStorage.setItem('identity', JSON.stringify(response.user));
-              this._router.navigate(['/listar-productos']);
+              this._router.navigate(['/dashboard']);
             },
             error => {
               console.error('Error getting user identity:', error);

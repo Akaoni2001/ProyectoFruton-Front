@@ -15,6 +15,13 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CatalogoComponent } from './components/catalogo/catalogo.component';
 import { UsersComponent } from './components/users/users.component';
 import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.component';
+import { VentasComponent } from './components/ventas/ventas.component';
+import { ProduccionComponent } from './components/produccion/produccion.component';
+import { CategoriasComponent } from './components/categorias/categorias.component';
+import { InventarioComponent } from './components/inventario/inventario.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { ReportesComponent } from './components/reportes/reportes.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 
@@ -30,7 +37,14 @@ import { CrearUsuarioComponent } from './components/crear-usuario/crear-usuario.
     SidenavComponent,
     CatalogoComponent,
     UsersComponent,
-    CrearUsuarioComponent
+    CrearUsuarioComponent,
+    VentasComponent,
+    ProduccionComponent,
+    CategoriasComponent,
+    InventarioComponent,
+    RolesComponent,
+    ReportesComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
