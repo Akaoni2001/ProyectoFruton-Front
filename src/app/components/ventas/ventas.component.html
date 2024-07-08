@@ -1,6 +1,31 @@
 <div class="app-container">
     <app-sidenav></app-sidenav>
     <div class="main-content">
-        
+        <div class="container mt-5">
+            <h1>HISTORIAL DE VENTAS</h1>
+            <br>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Fecha y hora</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let venta of listVentas; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{venta.nombreCliente}}</td>
+                    <td>{{venta.producto.nombre}}</td>
+                    <td>{{venta.cantidad}}</td>
+                    <td>{{venta.producto.precio}}</td>
+                    <td>{{venta.fechaVenta | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
