@@ -5,14 +5,14 @@ export class Venta{
     nombreCliente: string;
     producto:Producto;
     cantidad: number;
-    precio:number;
+    precioProducto:number;
     fechaVenta:Date;
 
-    constructor(nombreCliente:string, producto:Producto, cantidad:number, precio:number,fechaVenta:Date){
+    constructor(nombreCliente:string, producto:Producto, cantidad:number, precioProducto:number,fechaVenta:Date){
         this.nombreCliente= nombreCliente;
         this.producto=producto;
         this.cantidad=cantidad;
-        this.precio=precio;
+        this.precioProducto=precioProducto;
         this.fechaVenta=fechaVenta;
     }
 }

@@ -1,31 +1,54 @@
 <div class="app-container">
-    <app-sidenav></app-sidenav>
-    <div class="main-content">
-        <div class="container mt-5">
-            <h1>HISTORIAL DE VENTAS</h1>
-            <br>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Fecha y hora</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let venta of listVentas; let i = index">
-                    <th scope="row">{{i + 1}}</th>
-                    <td>{{venta.nombreCliente}}</td>
-                    <td>{{venta.producto.nombre}}</td>
-                    <td>{{venta.cantidad}}</td>
-                    <td>{{venta.producto.precio}}</td>
-                    <td>{{venta.fechaVenta | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                  </tr>
-                </tbody>
-            </table>
+  <app-sidenav></app-sidenav>
+  <div class="main-content">
+    <div class="container mt-5">
+      <h2>Registrar Venta</h2>
+      <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="nombreCliente">Nombre del Cliente</label>
+          <input type="text" class="form-control" id="nombreCliente" [(ngModel)]="newVenta.nombreCliente" name="nombreCliente" required>
         </div>
+        <div class="form-group">
+          <label for="producto">Producto</label>
+          <select class="form-control" id="producto" [(ngModel)]="newVenta.producto" name="producto" required>
+            <option *ngFor="let producto of productos" [ngValue]="producto">{{ producto.nombre }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="precioProducto">Precio</label>
+          <select class="form-control" id="precioProducto" [(ngModel)]="newVenta.producto" name="precioProducto" disabled="true">
+            <option *ngFor="let producto of productos" [ngValue]="producto">${{ producto.precio }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="cantidad">Cantidad</label>
+          <input type="number" class="form-control" id="cantidad" [(ngModel)]="newVenta.cantidad" name="cantidad" required>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Registrar Venta</button>
+      </form>
+
+      <h2 class="mt-5">Lista de Ventas</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Precio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let venta of listVentas; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ venta.nombreCliente }}</td>
+            <td>{{ venta.producto.nombre }}</td>
+            <td>{{ venta.cantidad }}</td>
+            <td>{{ venta.precioProducto }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
