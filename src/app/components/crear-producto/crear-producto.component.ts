@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageUpService } from 'src/app/services/imageUp.service';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 
@@ -21,6 +22,7 @@ export class CrearProductoComponent {
   constructor(private fb:FormBuilder,
     private router: Router,
     private _productoService:ProductoService,
+    private _imagenService: ImageUpService,
     private aRouter: ActivatedRoute) {
     this.productoForm=this.fb.group({
       producto: ['', Validators.required],
@@ -28,9 +30,30 @@ export class CrearProductoComponent {
       categoria: ['', Validators.required],
       precio: ['', Validators.required],
       stock: ['', Validators.required],
-      imagen: ['', Validators.required]
+      imagen: [null, Validators.required]
     });
     this.id = this.aRouter.snapshot.paramMap.get('id');
+  }
+
+  onImageChange(event: any) {
+    const file = event.target.files[0];
+    this.productoForm.patchValue({ imagen: file });
+  }
+
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('nombre', this.productoForm.get('nombre')?.value);
+    formData.append('descripcion', this.productoForm.get('descripcion')?.value);
+    formData.append('categoria', this.productoForm.get('categoria')?.value);
+    formData.append('precio', this.productoForm.get('precio')?.value);
+    formData.append('stock', this.productoForm.get('stock')?.value);
+    formData.append('image', this.productoForm.get('imagen')?.value);
+
+    // Subir la imagen y los detalles del producto
+    this._imagenService.uploadImage(formData).subscribe((response) => {
+      console.log('Producto creado con imagen:', response);
+      // Aquí puedes llamar al servicio de productos si quieres guardar otros detalles
+    });
   }
 
   ngOnInit():void{
@@ -87,8 +110,9 @@ export class CrearProductoComponent {
   }
 
   onFileSelected(event: any): void {
-    if (event.target.files && event.target.files.length > 0) {
-      this.selectedFile = event.target.files[0];
+    if (event.target.files && event.target.files.length[0]) {
+      const file = event.target.files[0];
+      this.selectedFileUrl = URL.createObjectURL(file);
       if (this.selectedFile) {
         const reader = new FileReader();
         reader.onload = (e: any) => {

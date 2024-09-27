@@ -12,8 +12,7 @@ export class ImageUpService {
 
   constructor(private http: HttpClient) { }
 
-  uploadImage(image: Imagen): Observable<any> {
-
-    return this.http.post(this.url, image);
+  uploadImage(formData: FormData): Observable<any> {
+    return this.http.post(this.url, formData);
   }
 }

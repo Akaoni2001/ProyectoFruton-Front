@@ -11,6 +11,7 @@
                       <table *ngIf="listProductos.length > 0" class="table table-striped mt-2">
                           <thead>
                             <tr>
+                              <th scope="col">Imagen</th>
                               <th scope="col">Producto</th>
                               <th scope="col">Descripcion</th>
                               <th scope="col">Categoria</th>
@@ -20,7 +21,8 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let producto of listProductos">  
+                            <tr *ngFor="let producto of listProductos">
+                              <td><img [src]="'data:image/jpeg;base64,' + producto.imagen" alt="{{ producto.nombre }}" /></td>
                               <td>{{ producto.nombre}}</td>
                               <td>{{ producto.descripcion}}</td>
                               <td>{{ producto.categoria}}</td>

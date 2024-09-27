@@ -15,7 +15,7 @@ export class VentasComponent {
   productos: Producto[] = [];
   newVenta: Venta = {
     nombreCliente: '',
-    producto: new Producto('', '', '', 0, 0,''),
+    producto: new Producto('', '', '', 0, 0, ''),
     cantidad: 0,
     precioProducto: 0,
     fechaVenta: new Date()

@@ -7,7 +7,7 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <span class="titulo">{{titulo | uppercase}}</span>
-                            <form class="row g-3 mt-3" [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
+                            <form class="row g-3 mt-3" [formGroup]="productoForm" (ngSubmit)="agregarProducto()" (ngSubmit)="onSubmit()">
                                 <div class="col-md-6 ">
                                     <input type="text" formControlName="producto" class="form-control" placeholder="Producto">
                                     <div class="text-danger" *ngIf="productoForm.get('producto')?.hasError('required') && productoForm.get('producto')?.touched">
@@ -39,11 +39,11 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <input type="file" (change)="onFileSelected($event)" formControlName="imagen" class="form-control" id="imagen" accept="image/*">
-                                </div>
+                                    <input type="file" (change)="onImageChange($event)" formControlName="imagen" class="form-control" id="imagen" accept="image/*">
+                                </div>  
                                 <div *ngIf="selectedFileUrl">
                                     <img [src]="selectedFileUrl" alt="Vista previa de la imagen" class="img-thumbnail">
-                                  </div>
+                                </div>
                                 <div class="d-grid gap-2">
                                     <button type="submit" [disabled]="productoForm.invalid" class="btn btn-success">ACEPTAR</button>
                                     <button routerLink="/listar-productos" class="btn btn-secondary">VOLVER</button>

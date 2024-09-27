@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Producto } from 'src/app/models/producto';
+import { ImageUpService } from 'src/app/services/imageUp.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
