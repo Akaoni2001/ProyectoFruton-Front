@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crear-producto',
@@ -15,13 +17,20 @@ export class CrearProductoComponent {
   titulo='Crear producto';
   id:string | null;
 
+ //firebase
+
+ uploadPercent: number | undefined;
+ downloadURL: string | undefined;
+
+
   selectedFile: File | null = null;
   selectedFileUrl: string | ArrayBuffer | null = null;
 
   constructor(private fb:FormBuilder,
     private router: Router,
     private _productoService:ProductoService,
-    private aRouter: ActivatedRoute) {
+    private aRouter: ActivatedRoute,
+    private storage: AngularFireStorage) {
     this.productoForm=this.fb.group({
       producto: ['', Validators.required],
       descripcion: ['', Validators.required],
@@ -97,5 +106,28 @@ export class CrearProductoComponent {
         reader.readAsDataURL(this.selectedFile);
       }
     }
+  }
+
+  //subida de imagaenes al firebase
+  uploadFile(event: any) {
+    const file = event.target.files[0];
+    const filePath = `uploads/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+
+    // Monitorear el progreso de la subida
+    task.percentageChanges().subscribe((percentage) => {
+      this.uploadPercent = percentage;
+    });
+
+    // Obtener la URL de descarga
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe(url => {
+          this.downloadURL = url;
+          console.log('La URL de la imagen es: ', this.downloadURL);
+        });
+      })
+    ).subscribe();
   }
 }
