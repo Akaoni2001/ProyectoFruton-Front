@@ -7,6 +7,8 @@ import { ProductoService } from 'src/app/services/producto.service';
   templateUrl: './listar-productos.component.html',
   styleUrls: ['./listar-productos.component.css']
 })
+
+//clase
 export class ListarProductosComponent {
 
   listProductos: Producto[]=[];
@@ -26,6 +28,9 @@ export class ListarProductosComponent {
       console.log(error);
     })
   }
+
+
+
   eliminarProducto(id:any){
     this._productoService.eliminarProducto(id).subscribe(data =>{
       this.obtenerProductos();
