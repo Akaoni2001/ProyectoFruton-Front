@@ -20,8 +20,8 @@ export class CrearProductoComponent {
  //firebase
 
  uploadPercent: number | undefined;
- downloadURL: string | undefined;
-
+ downloadURL: string;
+ localURL : File;
 
   selectedFile: File | null = null;
   selectedFileUrl: string | ArrayBuffer | null = null;
@@ -40,15 +40,18 @@ export class CrearProductoComponent {
       imagen: ['', Validators.required]
     });
     this.id = this.aRouter.snapshot.paramMap.get('id');
+    this.downloadURL = "";
+    this.localURL = null as any;
   }
 
   ngOnInit():void{
     this.esEditar();
   }
 
-  agregarProducto(){
+  async agregarProducto(){
     console.log(this.productoForm);
     console.log(this.productoForm.get('producto')?.value);
+    await this.uploadFile();
 
     const PRODUCTO: Producto = {
       nombre:this.productoForm.get('producto')?.value,
@@ -56,7 +59,7 @@ export class CrearProductoComponent {
       categoria:this.productoForm.get('categoria')?.value,
       precio:this.productoForm.get('precio')?.value,
       stock:this.productoForm.get('stock')?.value,
-      imagen:this.productoForm.get('imagen')?.value,
+      imagen:this.downloadURL,
     }
 
     if(this.id !==null){
@@ -96,6 +99,7 @@ export class CrearProductoComponent {
   }
 
   onFileSelected(event: any): void {
+    this.localURL = event.target.files[0];
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
       if (this.selectedFile) {
@@ -108,26 +112,24 @@ export class CrearProductoComponent {
     }
   }
 
-  //subida de imagaenes al firebase
-  uploadFile(event: any) {
-    const file = event.target.files[0];
-    const filePath = `uploads/${file.name}`;
-    const fileRef = this.storage.ref(filePath);
-    const task = this.storage.upload(filePath, file);
 
-    // Monitorear el progreso de la subida
-    task.percentageChanges().subscribe((percentage) => {
-      this.uploadPercent = percentage;
+  async uploadFile() {
+    return new Promise<void>((resolve, reject) => {
+      const filePath = `images/${this.localURL.name}`;
+      const fileRef = this.storage.ref(filePath);
+      const task = this.storage.upload(filePath, this.localURL);
+  
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(
+            (url) => {
+              this.downloadURL = url;
+              resolve();
+            },
+            (error) => reject(error)
+          );
+        })
+      ).subscribe();
     });
-
-    // Obtener la URL de descarga
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe(url => {
-          this.downloadURL = url;
-          console.log('La URL de la imagen es: ', this.downloadURL);
-        });
-      })
-    ).subscribe();
   }
 }
