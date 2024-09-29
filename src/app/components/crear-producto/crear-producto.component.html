@@ -50,7 +50,6 @@
                                                 obligatorio</strong></span>
                                     </div>
                                 </div>
-                                
                                 <!--imagen-->
                                 <div class="mb-3">
                                     <input type="file" (change)="onFileSelected($event)" formControlName="imagen"
@@ -65,10 +64,6 @@
                                     <button routerLink="/listar-productos" class="btn btn-secondary">VOLVER</button>
                                 </div>
                             </form>
-                            <!--subir imagen-->
-                            <input type="file" (change)="uploadFile($event)" />
-                            <p *ngIf="uploadPercent">Progreso de carga: {{ uploadPercent | number }}%</p>
-                            <img *ngIf="downloadURL" [src]="downloadURL" alt="Imagen cargada" width="300" />
                         </div>
                     </div>
                 </div>
