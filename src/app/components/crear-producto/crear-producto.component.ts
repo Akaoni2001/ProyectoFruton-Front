@@ -92,8 +92,9 @@ export class CrearProductoComponent {
           categoria: data.categoria,
           precio: data.precio,
           stock: data.stock,
-          imagen: data.imagen
+          imagen: this.selectedFile
         })
+        this.selectedFileUrl=data.imagen;
       })
     }
   }
