@@ -51,7 +51,6 @@ export class CrearProductoComponent {
   async agregarProducto(){
     console.log(this.productoForm);
     console.log(this.productoForm.get('producto')?.value);
-    await this.uploadFile();
 
     const PRODUCTO: Producto = {
       nombre:this.productoForm.get('producto')?.value,
@@ -92,9 +91,12 @@ export class CrearProductoComponent {
           categoria: data.categoria,
           precio: data.precio,
           stock: data.stock,
-          imagen: data.imagen
+          imagen: this.selectedFile
         })
+        this.selectedFileUrl= data.imagen;
       })
+      
+      console.log(this.selectedFileUrl);
     }
   }
 

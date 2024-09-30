@@ -12,6 +12,7 @@ import { ProductoService } from 'src/app/services/producto.service';
 export class ListarProductosComponent {
 
   listProductos: Producto[]=[];
+  
 
 
   constructor(private _productoService: ProductoService){}
