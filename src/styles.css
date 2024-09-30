@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+.titulo{
+    font-size: 1.8rem;
+    font-family: "Varela Round", sans-serif;
+}
+
+.app-container {
+    display: flex;
+    background-color: #f0f0f0;
+  }
+  
+  app-side-bar {
+    flex-shrink: 0;
+  }
+  
+  .main-content {
+    flex-grow: 1;
+    margin-left: 250px; /* Ancho del sidebar */
+    padding: 20px;
+    background-color: #f0f0f0;
+    height: 100vh;
+    overflow-y: auto;
+  }

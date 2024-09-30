@@ -1,0 +1,57 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <span class="titulo">{{titulo | uppercase}}</span>
+                            <form class="row g-3 mt-3" [formGroup]="usuarioForm" (ngSubmit)="agregarUsuario()">
+                                <div class="col-md-6 ">
+                                    <input type="text" formControlName="nombres" class="form-control" placeholder="Nombres">
+                                    <div class="text-danger" *ngIf="usuarioForm.get('nombres')?.hasError('required') && usuarioForm.get('nombres')?.touched">
+                                        <span>El nombre del usuario <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" formControlName="apellidos" class="form-control" placeholder="Apellidos">
+                                    <div class="text-danger" *ngIf="usuarioForm.get('apellidos')?.hasError('required') && usuarioForm.get('apellidos')?.touched">
+                                        <span>El apellido del usuario<strong> es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" formControlName="email" class="form-control" placeholder="Correo electronico">
+                                    <div class="text-danger" *ngIf="usuarioForm.get('email')?.hasError('required') && usuarioForm.get('email')?.touched">
+                                        <span class="float-start">El email del usuario <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <input type="text" formControlName="password" class="form-control" placeholder="Contraseña">
+                                    <div class="text-danger" *ngIf="usuarioForm.get('password')?.hasError('required') && usuarioForm.get('password')?.touched">
+                                        <span>La constraseña del usuario <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" formControlName="role">
+                                        <option value="" disabled selected>Seleccione un rol</option>
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Operador">Operador</option>
+                                        <option value="Cajero">Cajero</option>
+                                      </select>
+                                    <div class="text-danger" *ngIf="usuarioForm.get('role')?.hasError('required') && usuarioForm.get('role')?.touched">
+                                        <span>El role del usuario<strong> es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" [disabled]="usuarioForm.invalid" class="btn btn-success">ACEPTAR</button>
+                                    <button routerLink="/usuarios" class="btn btn-secondary">VOLVER</button>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

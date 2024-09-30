@@ -1,0 +1,19 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+      <div class="row">
+        <div *ngFor="let producto of listProductos" class="col-md-3">
+          <div class="card" style="width: 18rem;">
+            <img [src]="producto.imagen" alt="Imagen del producto" class="card-img-top">
+            <div class="card-body">
+              <h5 class="card-title">{{ producto.nombre }}</h5>
+              <p class="card-text">{{ producto.descripcion }}</p>
+              <h6>Precio: S/{{producto.precio}}</h6>
+              <a href="#" class="btn btn-primary">Ver producto</a>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </div>
+</div>
+

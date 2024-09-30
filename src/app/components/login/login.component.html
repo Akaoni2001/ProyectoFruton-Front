@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="centered-container">
+        <div class="form-container">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <img src="assets/fotos/2ff139fb-7a85-4d6c-8c62-6d874374d095-removebg-preview.png" alt="...">
+                <h1 class="titulo text-center">Inicio de sesión</h1>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" formControlName="email" placeholder="ejemplo@gmail.com" required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="password" formControlName="password" placeholder="********" required>
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="form-text">¿Olvidaste tu contraseña?</a>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button type="submit" class="btn btn-success">INGRESAR</button>
+                </div>
+                <div *ngIf="data_error" class="alert alert-danger mt-2">
+                    {{ data_error }}
+                </div>
+                <div *ngIf="data_error_vacio" class="alert alert-danger mt-2">
+                    {{ data_error_vacio }}
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
