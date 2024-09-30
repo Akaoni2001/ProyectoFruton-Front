@@ -30,24 +30,15 @@ export class CrearProductoComponent {
   constructor(private fb:FormBuilder,
     private router: Router,
     private _productoService:ProductoService,
-<<<<<<< HEAD
-    private _imagenService: ImageUpService,
-    private aRouter: ActivatedRoute) {
-=======
     private aRouter: ActivatedRoute,
     private storage: AngularFireStorage) {
->>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
     this.productoForm=this.fb.group({
       producto: ['', Validators.required],
       descripcion: ['', Validators.required],
       categoria: ['', Validators.required],
       precio: ['', Validators.required],
       stock: ['', Validators.required],
-<<<<<<< HEAD
-      imagen: [null, Validators.required]
-=======
       imagen: [null]
->>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
     });
     this.id = this.aRouter.snapshot.paramMap.get('id');
     this.downloadURL = "";
@@ -133,15 +124,9 @@ export class CrearProductoComponent {
   }
 
   onFileSelected(event: any): void {
-<<<<<<< HEAD
-    if (event.target.files && event.target.files.length[0]) {
-      const file = event.target.files[0];
-      this.selectedFileUrl = URL.createObjectURL(file);
-=======
     this.localURL = event.target.files[0];
     if (event.target.files && event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];
->>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
       if (this.selectedFile) {
         const reader = new FileReader();
         reader.onload = (e: any) => {

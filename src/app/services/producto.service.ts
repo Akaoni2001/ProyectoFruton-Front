@@ -8,11 +8,7 @@ import { Producto } from '../models/producto';
 })
 export class ProductoService {
 
-<<<<<<< HEAD
-  url='http://localhost:4000/api/productos'
-=======
   url='http://localhost:4000/api/productos'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/productos' o 'http://localhost:4000/api/productos'
->>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
 
   constructor(private http: HttpClient) { }
 

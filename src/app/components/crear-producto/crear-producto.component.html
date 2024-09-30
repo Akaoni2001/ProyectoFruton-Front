@@ -52,14 +52,9 @@
                                 </div>
                                 <!--imagen-->
                                 <div class="mb-3">
-<<<<<<< HEAD
-                                    <input type="file" (change)="onImageChange($event)" formControlName="imagen" class="form-control" id="imagen" accept="image/*">
-                                </div>  
-=======
                                     <input type="file" (change)="onFileSelected($event)"
                                         class="form-control" id="imagen" accept="image/*"  formControlName="imagen">
                                 </div>
->>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
                                 <div *ngIf="selectedFileUrl">
                                     <img [src]="selectedFileUrl" alt="Vista previa de la imagen" class="img-thumbnail">
                                 </div>
