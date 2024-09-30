@@ -93,7 +93,6 @@ export class CrearProductoComponent {
           stock: data.stock,
           imagen: this.selectedFile
         })
-        this.selectedFileUrl= data.imagen;
       })
       
       console.log(this.selectedFileUrl);
