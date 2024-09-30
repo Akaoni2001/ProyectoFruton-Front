@@ -30,6 +30,7 @@ export class CrearProductoComponent {
   constructor(private fb:FormBuilder,
     private router: Router,
     private _productoService:ProductoService,
+    private _imagenService: ImageUpService,
     private aRouter: ActivatedRoute,
     private storage: AngularFireStorage) {
     this.productoForm=this.fb.group({
