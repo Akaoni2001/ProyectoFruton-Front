@@ -11,10 +11,10 @@ export class UsersComponent {
 
   listUsers: User[]=[];
 
-
   constructor(private _userService: UserService){}
   ngOnInit(): void{
     this.obtenerUsers();
+    
   }
 
   obtenerUsers(){
