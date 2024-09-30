@@ -9,7 +9,11 @@ import { User } from '../models/user';
 })
 export class UserService {
 
+<<<<<<< HEAD
   url = 'http://localhost:4000/api/users'
+=======
+  url = 'http://localhost:4000/api/users'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/users' o 'http://localhost:4000/api/users'
+>>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
 
 
   constructor(private http: HttpClient) { }

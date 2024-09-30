@@ -21,8 +21,13 @@
                             </tr>
                           </thead>
                           <tbody>
+<<<<<<< HEAD
                             <tr *ngFor="let producto of listProductos">
                               <td><img [src]="'data:image/jpeg;base64,' + producto.imagen" alt="{{ producto.nombre }}" /></td>
+=======
+                            <tr *ngFor="let producto of listProductos">  
+                              <td><img src={{producto.imagen}} alt="" width="80px"></td>
+>>>>>>> 120b4ed8493a7c7dd8a4a4aaab13ae68648a35ad
                               <td>{{ producto.nombre}}</td>
                               <td>{{ producto.descripcion}}</td>
                               <td>{{ producto.categoria}}</td>
