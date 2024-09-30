@@ -37,7 +37,7 @@ export class CrearProductoComponent {
       categoria: ['', Validators.required],
       precio: ['', Validators.required],
       stock: ['', Validators.required],
-      imagen: ['', Validators.required]
+      imagen: [null]
     });
     this.id = this.aRouter.snapshot.paramMap.get('id');
     this.downloadURL = "";
@@ -52,6 +52,9 @@ export class CrearProductoComponent {
     console.log(this.productoForm);
     console.log(this.productoForm.get('producto')?.value);
 
+    if(this.localURL != null){
+      await this.uploadFile();
+    }
     const PRODUCTO: Producto = {
       nombre:this.productoForm.get('producto')?.value,
       descripcion:this.productoForm.get('descripcion')?.value,
@@ -93,9 +96,8 @@ export class CrearProductoComponent {
           stock: data.stock,
           imagen: this.selectedFile
         })
-      })
-      
-      console.log(this.selectedFileUrl);
+        this.selectedFileUrl = data.imagen;
+        this.downloadURL= data.imagen })
     }
   }
 
@@ -110,7 +112,11 @@ export class CrearProductoComponent {
         };
         reader.readAsDataURL(this.selectedFile);
       }
+      if(this.downloadURL != null){
+        this.eliminarImagen(this.downloadURL);
+      }  
     }
+    
   }
 
 
@@ -133,4 +139,21 @@ export class CrearProductoComponent {
       ).subscribe();
     });
   }
+
+
+
+  //eliminar imagen del firebase
+  eliminarImagen(url: string) {
+    const fileRef = this.storage.refFromURL(url);
+
+    fileRef.delete().subscribe(
+      () => {
+        console.log('Imagen eliminada exitosamente');
+      },
+      (error) => {
+        console.error('Error al eliminar la imagen:', error);
+      }
+    );
+  }
+
 }
