@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/app/models/tipo-producto';
 import { TipoProductoService } from 'src/app/services/tipo-producto.service';
+import { CategoriaService } from 'src/app/services/categoria.service';
 
 @Component({
   selector: 'app-crear-tipoproducto',
@@ -13,10 +14,12 @@ export class CrearTipoproductoComponent {
   tipoproductoForm: FormGroup;
   titulo='Crear tipo de producto';
   id:string | null;
+  categorias: any[] = [];
 
   constructor(private fb:FormBuilder,
     private router: Router,
     private _tipoproductoService:TipoProductoService,
+    private _categoriaService: CategoriaService,
     private aRouter: ActivatedRoute) {
     this.tipoproductoForm=this.fb.group({
       producto: ['', Validators.required],
@@ -28,6 +31,13 @@ export class CrearTipoproductoComponent {
     this.id = this.aRouter.snapshot.paramMap.get('id');
   }
 
+  cargarCategorias() {
+    this._categoriaService.getCategorias().subscribe(data => {
+      this.categorias = data;
+    }, error => {
+      console.log(error);
+    });
+  }
 
   onSubmit() {
     const formData = new FormData();
@@ -41,6 +51,7 @@ export class CrearTipoproductoComponent {
 
   ngOnInit():void{
     this.esEditar();
+    this.cargarCategorias();
   }
 
   async agregarTipoProducto(){
@@ -58,7 +69,7 @@ export class CrearTipoproductoComponent {
     if(this.id !==null){
       //editamos producto
         this._tipoproductoService.editarTipoProducto(this.id, PRODUCTO).subscribe(data=>{
-        this.router.navigate(['/tipo-productos']);
+        this.router.navigate(['/tipo-producto']);
       },error=>{
         console.log(error);
         this.tipoproductoForm.reset();

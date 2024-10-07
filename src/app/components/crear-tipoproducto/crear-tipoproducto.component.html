@@ -26,13 +26,22 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <select class="form-select" formControlName="categoria">
+                                        <option value="" disabled selected>Seleccione una Categoria</option>
+                                        <option *ngFor="let categoria of categorias" [value]="categoria._id">{{ categoria.nombreCategoria }}</option>
+                                      </select>
+                                    <div class="text-danger" *ngIf="tipoproductoForm.get('categoria')?.hasError('required') && tipoproductoForm.get('role')?.touched">
+                                        <span>La categoria del producto<strong> es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <!--<div class="col-md-6">
                                     <input type="text" formControlName="categoria" class="form-control"
                                         placeholder="Categoria">
                                     <div class="text-danger"
                                         *ngIf="tipoproductoForm.get('categoria')?.hasError('required') && tipoproductoForm.get('categoria')?.touched">
                                         <span>La categoria del producto<strong> es obligatorio</strong></span>
                                     </div>
-                                </div>
+                                </div>-->
                                 
                                 <div class="col-md-6 ">
                                     <input type="number" formControlName="precio" class="form-control"
