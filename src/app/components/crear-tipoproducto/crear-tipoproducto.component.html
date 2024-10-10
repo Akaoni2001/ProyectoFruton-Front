@@ -1,0 +1,76 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <span class="titulo">{{titulo | uppercase}}</span>
+                            <form class="row g-3 mt-3" [formGroup]="tipoproductoForm" (ngSubmit)="agregarTipoProducto()" (ngSubmit)="onSubmit()">
+                                <div class="col-md-12 ">
+                                    <input type="text" formControlName="producto" class="form-control"
+                                        placeholder="Producto">
+                                    <div class="text-danger"
+                                        *ngIf="tipoproductoForm.get('producto')?.hasError('required') && tipoproductoForm.get('producto')?.touched">
+                                        <span>El nombre del producto <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" formControlName="descripcion" class="form-control"
+                                        placeholder="Descripcion">
+                                    <div class="text-danger"
+                                        *ngIf="tipoproductoForm.get('descripcion')?.hasError('required') && tipoproductoForm.get('descripcion')?.touched">
+                                        <span class="float-start">La descripcion del producto <strong>es
+                                                obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" formControlName="categoria">
+                                        <option value="" disabled selected>Seleccione una Categoria</option>
+                                        <option *ngFor="let categoria of categorias" [value]="categoria._id">{{ categoria.nombreCategoria }}</option>
+                                      </select>
+                                    <div class="text-danger" *ngIf="tipoproductoForm.get('categoria')?.hasError('required') && tipoproductoForm.get('role')?.touched">
+                                        <span>La categoria del producto<strong> es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <!--<div class="col-md-6">
+                                    <input type="text" formControlName="categoria" class="form-control"
+                                        placeholder="Categoria">
+                                    <div class="text-danger"
+                                        *ngIf="tipoproductoForm.get('categoria')?.hasError('required') && tipoproductoForm.get('categoria')?.touched">
+                                        <span>La categoria del producto<strong> es obligatorio</strong></span>
+                                    </div>
+                                </div>-->
+                                
+                                <div class="col-md-6 ">
+                                    <input type="number" formControlName="precio" class="form-control"
+                                        placeholder="Precio">
+                                    <div class="text-danger"
+                                        *ngIf="tipoproductoForm.get('precio')?.hasError('required')  && tipoproductoForm.get('precio')?.touched">
+                                        <span>El precio del producto <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="number" formControlName="stock" class="form-control"
+                                        placeholder="Stock">
+                                    <div class="text-danger"
+                                        *ngIf="tipoproductoForm.get('stock')?.hasError('required')  && tipoproductoForm.get('stock')?.touched">
+                                        <span class="float-start">El stock del producto <strong>es
+                                                obligatorio</strong></span>
+                                    </div>
+                                </div>
+                
+                                <div class="d-grid gap-2">
+                                    <button type="submit" [disabled]="tipoproductoForm.invalid"
+                                        class="btn btn-success">ACEPTAR</button>
+                                    <button routerLink="/tipo-producto" class="btn btn-secondary">VOLVER</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
