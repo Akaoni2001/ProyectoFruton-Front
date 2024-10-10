@@ -19,7 +19,7 @@ export class CategoriasComponent implements OnInit {
     private _categoriaServices: CategoriaService,
     private fb: FormBuilder
   ) {
-    this.nombreUsuario = "Pepito Alcachofa";
+    this.nombreUsuario = "";
     this.categoriaForm = this.fb.group({
       nombreCategoria: ['', Validators.required]
     });
