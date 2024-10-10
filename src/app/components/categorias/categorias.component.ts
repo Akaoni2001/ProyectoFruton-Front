@@ -11,7 +11,6 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 export class CategoriasComponent implements OnInit {
 
   
-  nombreUsuario :String;
   listCategoria: Categoria[] = [];
   categoriaForm: FormGroup;
 
@@ -19,7 +18,10 @@ export class CategoriasComponent implements OnInit {
     private _categoriaServices: CategoriaService,
     private fb: FormBuilder
   ) {
+<<<<<<< HEAD
     this.nombreUsuario = "";
+=======
+>>>>>>> d23c560b9092a91c170d22b04a2e1fa6d8cc1af9
     this.categoriaForm = this.fb.group({
       nombreCategoria: ['', Validators.required]
     });

@@ -1,0 +1,12 @@
+<div class="modal-producto" *ngIf="isVisible">
+    
+        <img src="{{imagen}}">
+   
+    <div class="desc">
+        <h1>{{producto}}</h1>
+        <h3>{{categoria}}</h3>
+        <p>{{descripcion}}</p>
+        <h4>S/{{precio}}.00</h4>
+        <button class="btn btn-primary" (click) = "closeModal()">Cerrar</button>
+    </div>
+</div>

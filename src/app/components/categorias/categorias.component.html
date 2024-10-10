@@ -21,7 +21,6 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{nombreUsuario}}</th>
                     <th scope="col">Nombre de la categoria</th>
                     <th scope="col">Fecha de creacion</th>
                     <th></th>
@@ -29,7 +28,6 @@
                 <tbody>
                   <tr *ngFor="let categoria of listCategoria; let i = index">
                     <th scope="row">{{i + 1}}</th>
-                    <td></td>
                     <td>{{categoria.nombreCategoria}}</td>
                     <td>{{categoria.fechaCreacion | date:'yyyy-MM-dd'}}</td>
                     <td>
