@@ -3,3 +3,10 @@
     margin-left: 7px;
 }
 
+.filtroCategoria{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: end;
+    width:100%;
+}
+

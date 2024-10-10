@@ -8,6 +8,15 @@
                   <div class="card-body text-center">
                       <span class="titulo">LISTADO DE PRODUCTOS</span>
                       <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
+                                            
+                      <div class="filtroCategoria">
+                        <select [(ngModel)]="buscar_categoria">
+                          <option value="todos">Todos los productos</option>
+                          <option  *ngFor="let categoria of listCategoria" value={{categoria.nombreCategoria}}>
+                            {{categoria.nombreCategoria}}</option>                            
+                        </select>
+                        <button class="btn btn-success float-end" (click)="buscarProducto()">BUSCAR</button>
+                      </div>
                       <table *ngIf="listProductos.length > 0" class="table table-striped mt-2">
                           <thead>
                             <tr>

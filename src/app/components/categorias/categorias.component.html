@@ -6,13 +6,13 @@
             <form [formGroup]="categoriaForm" (ngSubmit)="agregarCategoria()">
                 <div class="row">
                     <div class="col-md-8">
-                        <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoria">
+                        <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoria" required>
                         <div class="text-danger" *ngIf="categoriaForm.get('nombreCategoria')?.hasError('required') && categoriaForm.get('nombreCategoria')?.touched">
                             <span>El nombre de la categoria <strong>es obligatorio</strong></span>
                         </div>
                     </div>
                     <div class="col-md-2 float-end">
-                        <button type="submit" class="btn btn-primary w-100">Registrar Categoria</button>
+                        <button type="submit" class="btn btn-primary w-100" >Registrar Categoria</button>
                     </div>
                 </div>
             </form>
