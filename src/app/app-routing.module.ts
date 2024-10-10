@@ -13,6 +13,8 @@ import { InventarioComponent } from './components/inventario/inventario.componen
 import { RolesComponent } from './components/roles/roles.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TipoProductoComponent } from './components/tipo-producto/tipo-producto.component';
+import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crear-tipoproducto.component';
 
 
 const routes: Routes = [
@@ -31,6 +33,9 @@ const routes: Routes = [
   {path:'roles', component:RolesComponent},
   {path:'reportes', component:ReportesComponent},
   {path:'dashboard', component:DashboardComponent},
+  {path:'tipo-producto', component:TipoProductoComponent},
+  {path:'editar-tipoproducto/:id', component:CrearTipoproductoComponent},
+  {path:'crear-tipoproducto', component:CrearTipoproductoComponent},
   {path:'**', redirectTo: '', pathMatch: 'full'}
 
 ];
