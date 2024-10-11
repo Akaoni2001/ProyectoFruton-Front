@@ -15,6 +15,8 @@ export class ListarProductosComponent {
   listProductos: Producto[]=[];
   listCategoria: Categoria[]=[];
   buscar_categoria: string = "";
+  alertaVisible: boolean = false;
+  mensajeAlerta: string = '';
 
   constructor(private _productoService: ProductoService,
     private _categoriaService: CategoriaService
@@ -40,6 +42,7 @@ export class ListarProductosComponent {
     },error=>{
       console.log(error);
     })
+    this.mostrarAlerta('Producto eliminado correctamente.');
   }
 
   buscarProducto(){
@@ -65,5 +68,20 @@ export class ListarProductosComponent {
         console.log(error);
       }
     );
+  }
+
+  mostrarAlerta(mensaje: string) {
+    this.mensajeAlerta = mensaje;
+    this.alertaVisible = true;
+
+    // Ocultar la alerta después de 3 segundos
+    setTimeout(() => {
+      this.ocultarAlerta();
+    }, 3000);
+  }
+
+  // Método para ocultar la alerta
+  ocultarAlerta() {
+    this.alertaVisible = false;
   }
 }

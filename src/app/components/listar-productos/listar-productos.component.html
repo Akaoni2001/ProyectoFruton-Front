@@ -33,7 +33,7 @@
                             <tr *ngFor="let producto of listProductos">  
                               <td><img src={{producto.imagen}} alt="" width="80px"></td>
                               <td>{{ producto.nombre}}</td>
-                              <td>{{ producto.descripcion}}</td>
+                              <td>{{ producto.descripcion.split(' ').slice(0, 8).join(' ')}}...</td>
                               <td>{{ producto.categoria}}</td>
                               <td>{{ producto.precio}}</td>
                               <td>{{ producto.stock}}</td>
@@ -49,7 +49,10 @@
                   </div>
               </div>
           </div>
-  
+          <!--alerta-->
+          <div *ngIf="alertaVisible" class="alert alert-success alerta-posicionada" role="alert">
+            {{ mensajeAlerta }}
+          </div>
       </div>
   </div>
   </div>

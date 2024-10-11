@@ -6,8 +6,7 @@
           <div class="card" style="width: 18rem;">
             <img [src]="producto.imagen" alt="Imagen del producto" class="card-img-top">
             <div class="card-body">
-              <h5 class="card-title">{{ producto.nombre }}</h5>
-              <p class="card-text">{{ producto.descripcion }}</p>
+              <h5 class="card-title" style="font-weight: 700;">{{ producto.nombre }}</h5>
               <h6>Precio: S/{{producto.precio}}</h6>
               <a class="btn btn-primary btnOscuro" (click)="abrirModal(producto)">Ver producto</a>
             </div>
