@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
@@ -29,6 +28,7 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TipoProductoComponent } from './components/tipo-producto/tipo-producto.component';
 import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crear-tipoproducto.component';
+import { ModalesComponent } from "./components/modales/modales.component";
 
 
 
@@ -53,20 +53,20 @@ import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crea
     ReportesComponent,
     DashboardComponent,
     TipoProductoComponent,
-    CrearTipoproductoComponent
+    CrearTipoproductoComponent,
+    ModalesComponent
   ],
   imports: [
     BrowserModule,
     //firebase
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
-
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-  ],
+],
   providers: [],
   bootstrap: [AppComponent]
 })

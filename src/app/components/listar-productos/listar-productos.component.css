@@ -3,3 +3,23 @@
     margin-left: 7px;
 }
 
+.filtroCategoria{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: end;
+    width:100%;
+}
+.alerta-posicionada {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050; /* Asegúrate de que esté en la capa superior */
+    width: 300px; /* Puedes ajustar este ancho */
+    opacity: 0.9; /* Para un poco de transparencia */
+  }
+  
+  .alerta-posicionada.fade-out {
+    opacity: 0; /* Transición para ocultar la alerta */
+    transition: opacity 0.5s ease-in-out;
+  }
+
