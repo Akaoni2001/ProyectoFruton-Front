@@ -28,7 +28,7 @@ img{
     display: flex;
     justify-content: center;
     flex-flow: column wrap;
-    align-items: end;
+    align-items: flex-end;
     text-align: right;
     text-justify: newspaper;
 }
