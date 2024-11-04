@@ -29,6 +29,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TipoProductoComponent } from './components/tipo-producto/tipo-producto.component';
 import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crear-tipoproducto.component';
 import { ModalesComponent } from "./components/modales/modales.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -56,7 +58,9 @@ import { ModalesComponent } from "./components/modales/modales.component";
     CrearTipoproductoComponent,
     ModalesComponent
   ],
-  imports: [
+  imports: [ 
+    BrowserAnimationsModule,
+    ToastrModule.forRoot( {positionClass: 'toast-top-right',}),
     BrowserModule,
     //firebase
     AngularFireModule.initializeApp(environment.firebaseConfig),
