@@ -6,7 +6,8 @@
 .filtroCategoria{
     display: flex;
     flex-flow: row wrap;
-    width:100%;
+    justify-content: flex-end;
+
 }
 .alerta-posicionada {
     position: fixed;
