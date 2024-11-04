@@ -15,17 +15,10 @@ export class VentasComponent {
 
   isVisible:boolean=true;
   total:number=0;
-  listVentas: Venta[] = [];
   productos: Producto[] = [];
   listCategorias: Categoria[] = [];
   listaPedidos: any[]= [];
-  newVenta: Venta = {
-    nombreCliente: '',
-    producto: new Producto('', '', '', 0, 0,''),
-    cantidad: 0,
-    precioProducto: 0,
-    fechaVenta: new Date()
-  };
+  
 
   constructor(
     private _ventasService: VentaService,
@@ -34,7 +27,6 @@ export class VentasComponent {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerVentas();
     this.obtenerProductos();
     this.obtenerCategorias();
   }
@@ -43,14 +35,7 @@ export class VentasComponent {
     this.total += valor;
   }
 
-  obtenerVentas() {
-    this._ventasService.getVentas().subscribe(data => {
-      console.log(data);
-      this.listVentas = data;
-    }, error => {
-      console.log(error);
-    });
-  }
+
 
   obtenerProductos() {
     this._productosService.getProductos().subscribe(data => {
@@ -59,14 +44,6 @@ export class VentasComponent {
     }, error => {
       console.log(error);
     });
-  }
-
-  verifica(){
-    if(this.listaPedidos.length==0){
-      this.isVisible=true;
-    }else{
-      this.isVisible=false;
-    }
   }
 
   obtenerPedido(nombreProducto:any){
@@ -138,7 +115,38 @@ export class VentasComponent {
     });
   }
 
+  
+  verifica(){
+    if(this.listaPedidos.length==0){
+      this.isVisible=true;
+    }else{
+      this.isVisible=false;
+    }
+  }
 
+  registrarVenta() {
+      const cantidades = this.listaPedidos.map(producto=> producto.cantidad);
+
+      const nuevaVenta: Venta = {
+        productos: this.listaPedidos,
+        cantidades: cantidades,
+        precioTotal: this.total,
+        fechaVenta: new Date()
+      };
+
+      this._ventasService.addVenta(nuevaVenta).subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.error('Error al agregar categoría:', error);
+        }
+      );
+  }
+
+
+
+/* 
   onSubmit(): void {
     this.newVenta.fechaVenta = new Date();
     this._ventasService.addVenta(this.newVenta).subscribe((venta) => {
@@ -152,4 +160,5 @@ export class VentasComponent {
       };
     });
   }
+    */
 }
