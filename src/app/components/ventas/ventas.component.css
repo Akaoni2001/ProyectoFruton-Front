@@ -181,3 +181,14 @@ a:hover{
     background: rgb(154, 0, 0);
     cursor: pointer;
 }
+
+.modalVuelto{
+    padding: 4rem;
+    position: absolute !important;
+    top: 20%;
+    left: 70%;
+    box-shadow: 1px 1px 10px 1px rgba(35, 35, 35, 0.915);
+    background-color: aliceblue;
+    border-radius: 20px;
+}
+

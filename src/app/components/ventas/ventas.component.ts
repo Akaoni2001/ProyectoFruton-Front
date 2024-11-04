@@ -13,8 +13,9 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 })
 export class VentasComponent {
 
-  isVisible:boolean=true;
+  isVisible:boolean=false;
   total:number=0;
+  vuelto: number=0;
   listVentas: Venta[] = [];
   productos: Producto[] = [];
   listCategorias: Categoria[] = [];
@@ -25,7 +26,11 @@ export class VentasComponent {
     cantidad: 0,
     precioProducto: 0,
     fechaVenta: new Date()
-  };
+  }
+  
+  productoSeleccionado: any=null;
+  brillo: number=1;
+  ;
 
   constructor(
     private _ventasService: VentaService,
@@ -42,6 +47,21 @@ export class VentasComponent {
   sumT(valor:number){
     this.total += valor;
   }
+
+  abrirModal() {    
+    this.isVisible = true;
+    this.brillo = 0.6;    
+  }
+
+  closeModal(){
+    this.brillo=1;
+    this.isVisible=false;
+  }
+
+  calcularVuelto(montoEntregado:string) {
+    this.vuelto = parseFloat(montoEntregado) >= this.total ? parseFloat(montoEntregado) - this.total : (alert('El monto entregado es insuficiente'), 0);
+  }
+
 
   obtenerVentas() {
     this._ventasService.getVentas().subscribe(data => {
@@ -81,7 +101,6 @@ export class VentasComponent {
       }
     })
 
-    this.verifica();
     if(salir) return;
 
     this._productosService.getProductos().subscribe(data => {
@@ -91,7 +110,6 @@ export class VentasComponent {
           this.sumT(producto.precio); 
           this.listaPedidos.push(producto);
           
-    this.verifica();
         }
       });
   
@@ -115,7 +133,6 @@ export class VentasComponent {
           }
         }
     })
-    this.verifica();
   }
   
 
