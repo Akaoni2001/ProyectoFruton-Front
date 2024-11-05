@@ -1,54 +1,131 @@
 <div class="app-container">
-  <app-sidenav></app-sidenav>
-  <div class="main-content">
-    <div class="container mt-5">
-      <h2>Registrar Venta</h2>
-      <form (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="nombreCliente">Nombre del Cliente</label>
-          <input type="text" class="form-control" id="nombreCliente" [(ngModel)]="newVenta.nombreCliente" name="nombreCliente" required>
-        </div>
-        <div class="form-group">
-          <label for="producto">Producto</label>
-          <select class="form-control" id="producto" [(ngModel)]="newVenta.producto" name="producto" required>
-            <option *ngFor="let producto of productos" [ngValue]="producto">{{ producto.nombre }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="precioProducto">Precio</label>
-          <select class="form-control" id="precioProducto" [(ngModel)]="newVenta.producto" name="precioProducto" disabled="true">
-            <option *ngFor="let producto of productos" [ngValue]="producto">${{ producto.precio }}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="cantidad">Cantidad</label>
-          <input type="number" class="form-control" id="cantidad" [(ngModel)]="newVenta.cantidad" name="cantidad" required>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Registrar Venta</button>
-      </form>
+  <!--sidenav-->
+  <app-sidenav style="z-index: 2;"></app-sidenav>
 
-      <h2 class="mt-5">Lista de Ventas</h2>
-      <table class="table">
+  <!--container sec-->
+  <div class="container" style="position: relative;">
+
+    <!--lista venta-->
+    <div class="listas listaVenta">
+      <h2 *ngIf="isVisible.elemento1" style="position: absolute; top: 30%; left: 25%;">La lista está vacia</h2>
+      <div class="producto-pedido">
+        <div *ngFor="let producto of listaPedidos" class="card-pedido">
+          <img [src]="producto.imagen" alt="Imagen del producto">
+          <div class="body">
+            <h5 style="font-weight: 700;">{{ producto.nombre }}</h5>
+            <p>Precio: S/{{producto.precio}}</p>
+            <p style="font-weight: 500;">Cantidad: {{producto.cantidad}}</p>
+          </div>
+          <div (click)="eliminarPedido(producto.nombre)" class="eliminar-pedido">
+            <i class="fa-solid fa-trash" style="color: #ffffff;"></i>
+          </div>
+        </div>
+      </div>
+      <div class="precio-final">
+        <div class="p1">
+          <p>Total</p>
+          <p style="font-weight: 700;">S/{{total}}</p>
+        </div>
+
+
+        <div class="p2">
+          <div class="btn btn-danger" (click)="abrirModal()">Continuar</div>
+        </div>
+
+        <!--modal-->
+        <div class="modal-overlay" *ngIf="isVisible.elemento2"></div>
+        <div *ngIf="isVisible.elemento2" class="modalVuelto" style="z-index: 20;">
+
+          <p>Cliente:</p>
+          <input #cliente type="text" placeholder="Cliente" class="col-md-6" style="margin:10px;">
+          <!-- Mostrar el precio -->
+          <p>Precio: {{ total | currency:'S/.':'symbol':'1.2-2'}}</p>
+
+          <!-- Campo para ingresar el monto entregado -->
+          <label for="montoEntregado">Monto entregado:</label>
+          <input type="number" #monto>
+          <div class="btn btn-success" (click)="calcularVuelto(monto.value)"> Calcular </div>
+
+          <!-- Mostrar el vuelto calculado -->
+          <p>Vuelto: {{ vuelto | currency:'S/.':'symbol':'1.2-2' }}</p>
+
+          <!-- Botón para cerrar el modal -->
+          <div class="btn btn-success" (click)="registrarVenta(cliente.value)"> Registrar Venta </div>
+          <div class="btn btn-success" (click)="closeModal()" style=" margin-left: 10px;"> Cancelar </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!--catalago-->
+    <div class="listas catalogoProductos">
+      <nav class="categorias">
+        <a (click)="obtenerProductos()">Todos</a>
+        <a *ngFor="let categoria of listCategorias" class="col-md-3"
+          (click)="filtrarCategoria(categoria.nombreCategoria)">{{categoria.nombreCategoria}} </a>
+      </nav>
+
+
+      <div class="container-productos">
+        <div *ngFor="let producto of productos" class="col-md-3" style="margin-bottom: 10px;">
+          <div class="card card-general" style="width: 9rem; height: 320px; margin-bottom: 10px;">
+            <img [src]="producto.imagen" alt="Imagen del producto" class="card-img-top">
+            <div class="card-body">
+              <h6 class="card-title" style="font-weight: 700;">{{ producto.nombre }}</h6>
+              <h6>Precio: S/{{producto.precio}}</h6>
+              <div class="btn btn-outline-primary btn-sm" (click)="obtenerPedido(producto.nombre)">Agregar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="vistaVentas">
+      <h1>Ventas del dia</h1>
+      <table class="table" style="text-align: center;">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Precio</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Precio Total</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let venta of listVentas; let i = index">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ venta.nombreCliente }}</td>
-            <td>{{ venta.producto.nombre }}</td>
-            <td>{{ venta.cantidad }}</td>
-            <td>{{ venta.precioProducto }}</td>
-          </tr>
+          <ng-container *ngFor="let ventas of listVentas; let i = index">
+            <tr style="z-index: 10;">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{ventas.fechaVenta | date:'MM-dd-HH:mm'}}</td>
+              <td>{{ventas.nombreCliente}}</td>
+              <td>{{ventas.precioTotal}}</td>
+              <td>
+                <i class="fa-solid fa-caret-down" (click)="toggleRow(i)" style="cursor: pointer; font-size: 25px;"></i>
+              </td>
+            </tr>
+            <tr *ngIf="isRowExpanded(i)" @rowAnimation style="padding: 0; z-index: 1;">
+              <td colspan="5" style="padding: 0;">
+                <div class="p-2" style="background-color: #f8f9fa;">
+                  <div class="productsVenta" style="font-weight: 700;">
+                    <a>Productos</a>
+                    <a>Cantidad</a>
+                    <a>Precio</a>
+                  </div>
+                  <div class="productsVenta" *ngFor="let producto of ventas.productos; let i=index">
+                    <a>{{producto.nombre}}</a>
+                    <a>{{ventas.cantidades[i]}}</a>
+                    <a>{{producto.precio}}</a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
       </table>
+
     </div>
+
   </div>
+
 </div>
