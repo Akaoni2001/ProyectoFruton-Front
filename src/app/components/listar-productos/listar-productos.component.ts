@@ -3,6 +3,8 @@ import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-listar-productos',
   templateUrl: './listar-productos.component.html',
@@ -14,12 +16,15 @@ export class ListarProductosComponent {
 
   listProductos: Producto[]=[];
   listCategoria: Categoria[]=[];
-  iconoOcultar: string = "fa-solid fa-eye";
+
+  iconos: string[]=[];
   buscar_categoria: string = "";
   mensajeAlerta: string = '';
 
-  constructor(private _productoService: ProductoService,
-    private _categoriaService: CategoriaService
+  constructor( private router: Router,
+    private _productoService: ProductoService,
+    private _categoriaService: CategoriaService,
+    private toastr: ToastrService
   ){}
 
   ngOnInit(): void{
@@ -27,13 +32,14 @@ export class ListarProductosComponent {
     this.obtenerCategoria();
   }
 
-  ocultar(){
-    if(this.iconoOcultar=="fa-solid fa-eye"){
-      this.iconoOcultar = "fa-solid fa-eye-low-vision";
+  ocultar(i:number, estado:boolean){
+    if(estado){
+      this.iconos[i] = "fa-solid fa-eye-low-vision";
     }else{
-      this.iconoOcultar="fa-solid fa-eye";
+      this.iconos[i]="fa-solid fa-eye";
     }
   }
+
   obtenerProductos(){
     this._productoService.getProductos().subscribe(data=>{
       console.log(data);
@@ -66,6 +72,26 @@ export class ListarProductosComponent {
         console.log(error);
       }
     );
+  }
+
+  actualizarEstado(idProducto:string|undefined, estado:boolean, i:number){
+    if((this.listProductos.find(p =>p._id === idProducto))!.stock !=0){
+      this._productoService.actualizarEstado(idProducto, !estado).subscribe(data=>{},
+        error=>{
+        console.log(error);
+      })
+      this.listProductos[i].estado=!estado;
+    }else{
+      this.mostrarError("Producto sin stock", "Acción no válida")
+    }
+    
+    
+}
+
+mostrarError(mensaje:string, Titulo:string) {
+    this.toastr.error(mensaje, Titulo,
+      {positionClass : "toast-top-right",}
+   );
   }
 
 }

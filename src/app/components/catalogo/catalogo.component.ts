@@ -24,7 +24,7 @@ export class CatalogoComponent {
   obtenerProductos(){
     this._productoService.getProductos().subscribe(data=>{
       console.log(data);
-      this.listProductos= data;
+      this.listProductos= data.filter((producto:any) => (producto as{estado:boolean}).estado == true);
     }, error=>{
       console.log(error);
     })
