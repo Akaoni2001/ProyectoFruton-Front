@@ -14,8 +14,8 @@ export class ListarProductosComponent {
 
   listProductos: Producto[]=[];
   listCategoria: Categoria[]=[];
+  iconoOcultar: string = "fa-solid fa-eye";
   buscar_categoria: string = "";
-  alertaVisible: boolean = false;
   mensajeAlerta: string = '';
 
   constructor(private _productoService: ProductoService,
@@ -27,6 +27,13 @@ export class ListarProductosComponent {
     this.obtenerCategoria();
   }
 
+  ocultar(){
+    if(this.iconoOcultar=="fa-solid fa-eye"){
+      this.iconoOcultar = "fa-solid fa-eye-low-vision";
+    }else{
+      this.iconoOcultar="fa-solid fa-eye";
+    }
+  }
   obtenerProductos(){
     this._productoService.getProductos().subscribe(data=>{
       console.log(data);
@@ -34,15 +41,6 @@ export class ListarProductosComponent {
     }, error=>{
       console.log(error);
     })
-  }
-
-  eliminarProducto(id:any){
-    this._productoService.eliminarProducto(id).subscribe(data =>{
-      this.obtenerProductos();
-    },error=>{
-      console.log(error);
-    })
-    this.mostrarAlerta('Producto eliminado correctamente.');
   }
 
   buscarProducto(){
@@ -70,18 +68,4 @@ export class ListarProductosComponent {
     );
   }
 
-  mostrarAlerta(mensaje: string) {
-    this.mensajeAlerta = mensaje;
-    this.alertaVisible = true;
-
-    // Ocultar la alerta después de 3 segundos
-    setTimeout(() => {
-      this.ocultarAlerta();
-    }, 3000);
-  }
-
-  // Método para ocultar la alerta
-  ocultarAlerta() {
-    this.alertaVisible = false;
-  }
 }

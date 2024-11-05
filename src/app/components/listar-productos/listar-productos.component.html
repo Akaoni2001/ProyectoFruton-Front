@@ -39,7 +39,7 @@
                               <td>{{ producto.stock}}</td>
                               <td>
                                   <i [routerLink]="['/editar-producto', producto._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
-                                  <i (click)="eliminarProducto(producto._id)" class="fas fa-solid fa-trash text-danger"></i>
+                                  <i class={{iconoOcultar}} (click)="ocultar()"></i>
                               </td>
                             </tr>
             
@@ -48,10 +48,6 @@
                       <h5 style="text-align: start; margin-top: 10px;" *ngIf="listProductos.length == 0">No hay productos para mostrar</h5>
                   </div>
               </div>
-          </div>
-          <!--alerta-->
-          <div *ngIf="alertaVisible" class="alert alert-success alerta-posicionada" role="alert">
-            {{ mensajeAlerta }}
           </div>
       </div>
   </div>
