@@ -78,7 +78,7 @@ export class VentasComponent {
   obtenerProductos() {
     this._productosService.getProductos().subscribe(data => {
       console.log(data);
-      this.productos = data;
+      this.productos = data.filter((producto:any) => (producto as{estado:boolean}).estado == true);
     }, error => {
       console.log(error);
     });
@@ -86,34 +86,34 @@ export class VentasComponent {
 
   obtenerPedido(nombreProducto:any){
 
+
     var salir = false;
     
     this.listaPedidos.forEach((producto, index) => {
       if (producto.nombre === nombreProducto) {
+        if(this.listaPedidos[index].cantidad+1>producto.stock){
+          this.mostrarError("Stock insufieciente", "Fuera de stock");
+          salir=true;
+        }else{
           this.listaPedidos[index].cantidad += 1;
           this.sumT(producto.precio);
           salir = true;
-      }
+      }}
     })
 
     
     this.verifica();
     if(salir) return;
 
-    this._productosService.getProductos().subscribe(data => {
-      data.forEach((producto: any) => {
-        if ((producto as { nombre: string }).nombre === nombreProducto) {
+    
+    this.productos.forEach((producto: any) => {
+        if (producto.nombre === nombreProducto) {
           producto.cantidad = 1;
           this.sumT(producto.precio); 
           this.listaPedidos.push(producto);
           this.verifica();
         }
       });
-  
-      console.log(this.listaPedidos);
-    }, error => {
-      console.log(error);
-    });
 
     
     this.verifica();
@@ -158,7 +158,7 @@ export class VentasComponent {
   filtrarCategoria(categoria:any){
     this._productosService.getProductos().subscribe(data => {
       console.log(data);
-      this.productos = data.filter((producto:any) => (producto as{categoria:string}).categoria == categoria);
+      this.productos = data.filter((producto:any) => (producto as{categoria:string, estado:boolean}).categoria == categoria && producto.estado==true);
     
     }, error => {
       console.log(error);
@@ -194,6 +194,9 @@ export class VentasComponent {
           console.error('Error al agregar categoría:', error);
         }
       );
+      this.actualizarStock(this.listaPedidos.map(p=> p._id), this.listaPedidos.map(p=>(p.stock - p.cantidad)))
+
+
       this.mostrarSatisfaccion("Venta realizada con éxito", "Venta registrada");
       this.listaPedidos=[];
       this.total=0;
@@ -201,8 +204,21 @@ export class VentasComponent {
       this.isVisible.elemento1=true;
   }
 
+  actualizarStock(ids :(string|undefined) [],  stocks:number[]){
+    this._productosService.actualizarStock(ids, stocks).subscribe(data=>{},
+    error=>{
+    console.log(error);
+  })
+}
+
   mostrarSatisfaccion(mensaje:string, Titulo:string) {
     this.toastr.success(mensaje, Titulo,
+      {positionClass : "toast-top-right",}
+   );
+  }
+
+  mostrarError(mensaje:string, Titulo:string) {
+    this.toastr.error(mensaje, Titulo,
       {positionClass : "toast-top-right",}
    );
   }

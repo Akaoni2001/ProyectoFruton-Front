@@ -30,7 +30,7 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let producto of listProductos">  
+                            <tr *ngFor="let producto of listProductos; let i=index">  
                               <td><img src={{producto.imagen}} alt="" width="80px"></td>
                               <td>{{ producto.nombre}}</td>
                               <td>{{ producto.descripcion.split(' ').slice(0, 8).join(' ')}}...</td>
@@ -39,7 +39,10 @@
                               <td>{{ producto.stock}}</td>
                               <td>
                                   <i [routerLink]="['/editar-producto', producto._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
-                                  <i (click)="eliminarProducto(producto._id)" class="fas fa-solid fa-trash text-danger"></i>
+                                  <i [ngClass]="{
+                                    'fa-regular fa-eye': producto.estado === true,
+                                    'fa-solid fa-eye-low-vision': producto.estado === false
+                                  }" (click)="actualizarEstado(producto._id, producto.estado, i)"></i>
                               </td>
                             </tr>
             
@@ -48,10 +51,6 @@
                       <h5 style="text-align: start; margin-top: 10px;" *ngIf="listProductos.length == 0">No hay productos para mostrar</h5>
                   </div>
               </div>
-          </div>
-          <!--alerta-->
-          <div *ngIf="alertaVisible" class="alert alert-success alerta-posicionada" role="alert">
-            {{ mensajeAlerta }}
           </div>
       </div>
   </div>

@@ -3,6 +3,8 @@ import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-listar-productos',
   templateUrl: './listar-productos.component.html',
@@ -14,17 +16,28 @@ export class ListarProductosComponent {
 
   listProductos: Producto[]=[];
   listCategoria: Categoria[]=[];
+
+  iconos: string[]=[];
   buscar_categoria: string = "";
-  alertaVisible: boolean = false;
   mensajeAlerta: string = '';
 
-  constructor(private _productoService: ProductoService,
-    private _categoriaService: CategoriaService
+  constructor( private router: Router,
+    private _productoService: ProductoService,
+    private _categoriaService: CategoriaService,
+    private toastr: ToastrService
   ){}
 
   ngOnInit(): void{
     this.obtenerProductos();
     this.obtenerCategoria();
+  }
+
+  ocultar(i:number, estado:boolean){
+    if(estado){
+      this.iconos[i] = "fa-solid fa-eye-low-vision";
+    }else{
+      this.iconos[i]="fa-solid fa-eye";
+    }
   }
 
   obtenerProductos(){
@@ -34,15 +47,6 @@ export class ListarProductosComponent {
     }, error=>{
       console.log(error);
     })
-  }
-
-  eliminarProducto(id:any){
-    this._productoService.eliminarProducto(id).subscribe(data =>{
-      this.obtenerProductos();
-    },error=>{
-      console.log(error);
-    })
-    this.mostrarAlerta('Producto eliminado correctamente.');
   }
 
   buscarProducto(){
@@ -70,18 +74,24 @@ export class ListarProductosComponent {
     );
   }
 
-  mostrarAlerta(mensaje: string) {
-    this.mensajeAlerta = mensaje;
-    this.alertaVisible = true;
+  actualizarEstado(idProducto:string|undefined, estado:boolean, i:number){
+    if((this.listProductos.find(p =>p._id === idProducto))!.stock !=0){
+      this._productoService.actualizarEstado(idProducto, !estado).subscribe(data=>{},
+        error=>{
+        console.log(error);
+      })
+      this.listProductos[i].estado=!estado;
+    }else{
+      this.mostrarError("Producto sin stock", "Acción no válida")
+    }
+    
+    
+}
 
-    // Ocultar la alerta después de 3 segundos
-    setTimeout(() => {
-      this.ocultarAlerta();
-    }, 3000);
+mostrarError(mensaje:string, Titulo:string) {
+    this.toastr.error(mensaje, Titulo,
+      {positionClass : "toast-top-right",}
+   );
   }
 
-  // Método para ocultar la alerta
-  ocultarAlerta() {
-    this.alertaVisible = false;
-  }
 }
