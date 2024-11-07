@@ -62,8 +62,14 @@ export class VentasComponent {
   }
 
   abrirModal() {    
+    if(this.listaPedidos.length!=0){
     this.isVisible.elemento2 = true;
     this.brillo = 0.6;    
+    }
+    else{
+      this.mostrarError("Ningun producto añadido", "Acción inválida");
+    }
+
   }
 
   closeModal(){
@@ -189,19 +195,22 @@ export class VentasComponent {
         data => {
           console.log(data);
           this.listVentas.push(data);
-        },
-        error => {
-          console.error('Error al agregar categoría:', error);
-        }
-      );
+
+          
       this.actualizarStock(this.listaPedidos.map(p=> p._id), this.listaPedidos.map(p=>(p.stock - p.cantidad)))
-
-
       this.mostrarSatisfaccion("Venta realizada con éxito", "Venta registrada");
       this.listaPedidos=[];
       this.total=0;
       this.closeModal();
       this.isVisible.elemento1=true;
+        },
+        error => {
+          console.error('Error', error);
+          this.mostrarError("Ningun producto añadido", "Accion inválida");
+        }
+      );
+
+
   }
 
   actualizarStock(ids :(string|undefined) [],  stocks:number[]){
