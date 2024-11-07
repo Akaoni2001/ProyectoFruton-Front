@@ -31,6 +31,7 @@ import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crea
 import { ModalesComponent } from "./components/modales/modales.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 
 
@@ -56,7 +57,8 @@ import { ToastrModule } from 'ngx-toastr';
     DashboardComponent,
     TipoProductoComponent,
     CrearTipoproductoComponent,
-    ModalesComponent
+    ModalesComponent,
+    PedidosComponent
   ],
   imports: [ 
     BrowserAnimationsModule,
