@@ -26,6 +26,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class VentasComponent {
 
+  isVentaRegistrable = false;
+
   isVisible = {
     elemento1: true,
     elemento2: false
@@ -62,8 +64,14 @@ export class VentasComponent {
   }
 
   abrirModal() {    
+    if(this.listaPedidos.length!=0){
     this.isVisible.elemento2 = true;
     this.brillo = 0.6;    
+    }
+    else{
+      this.mostrarError("Ningun producto añadido", "Acción inválida");
+    }
+
   }
 
   closeModal(){
@@ -71,9 +79,23 @@ export class VentasComponent {
     this.isVisible.elemento2=false;
   }
 
-  calcularVuelto(montoEntregado:string) {
-    this.vuelto = parseFloat(montoEntregado) >= this.total ? parseFloat(montoEntregado) - this.total : (alert('El monto entregado es insuficiente'), 0);
-  }
+  calcularVuelto(montoEntregado: string) {
+    const monto = parseFloat(montoEntregado);
+    if (monto >= this.total) {
+      this.vuelto = monto - this.total;
+      this.isVentaRegistrable = true; // Habilita el botón si el monto es suficiente
+    } else {
+      alert('El monto entregado es insuficiente');
+      this.vuelto = 0;
+      this.isVentaRegistrable = false; // Deshabilita el botón si el monto es insuficiente
+    }
+  }
+
+  verificarMonto(montoEntregado: string) {
+    // Convierte el monto entregado a un número y verifica la condición
+    const monto = parseFloat(montoEntregado);
+    this.isVentaRegistrable = monto >= this.total; // Solo habilita si el monto es suficiente
+  }
 
   obtenerProductos() {
     this._productosService.getProductos().subscribe(data => {
@@ -189,19 +211,22 @@ export class VentasComponent {
         data => {
           console.log(data);
           this.listVentas.push(data);
-        },
-        error => {
-          console.error('Error al agregar categoría:', error);
-        }
-      );
+
+          
       this.actualizarStock(this.listaPedidos.map(p=> p._id), this.listaPedidos.map(p=>(p.stock - p.cantidad)))
-
-
       this.mostrarSatisfaccion("Venta realizada con éxito", "Venta registrada");
       this.listaPedidos=[];
       this.total=0;
       this.closeModal();
       this.isVisible.elemento1=true;
+        },
+        error => {
+          console.error('Error', error);
+          this.mostrarError("Ningun producto añadido", "Accion inválida");
+        }
+      );
+
+
   }
 
   actualizarStock(ids :(string|undefined) [],  stocks:number[]){

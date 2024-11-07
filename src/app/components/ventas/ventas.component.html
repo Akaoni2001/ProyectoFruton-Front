@@ -43,15 +43,17 @@
 
           <!-- Campo para ingresar el monto entregado -->
           <label for="montoEntregado">Monto entregado:</label>
-          <input type="number" #monto>
+          <input type="number" #monto (input)="verificarMonto(monto.value)" />
           <div class="btn btn-success" (click)="calcularVuelto(monto.value)"> Calcular </div>
 
           <!-- Mostrar el vuelto calculado -->
           <p>Vuelto: {{ vuelto | currency:'S/.':'symbol':'1.2-2' }}</p>
 
           <!-- Botón para cerrar el modal -->
-          <div class="btn btn-success" (click)="registrarVenta(cliente.value)"> Registrar Venta </div>
-          <div class="btn btn-success" (click)="closeModal()" style=" margin-left: 10px;"> Cancelar </div>
+          <button class="btn btn-success" (click)="registrarVenta(cliente.value)" [disabled]="!isVentaRegistrable">
+            Registrar Venta
+          </button>
+          <div class="btn btn-success" (click)="closeModal()" style=" margin-left: 10px;">Cancelar</div>
 
         </div>
 
