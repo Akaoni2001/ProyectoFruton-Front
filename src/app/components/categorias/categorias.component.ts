@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-categorias',
   templateUrl: './categorias.component.html',
@@ -16,7 +17,8 @@ export class CategoriasComponent implements OnInit {
 
   constructor(
     private _categoriaServices: CategoriaService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {
     this.categoriaForm = this.fb.group({
       nombreCategoria: ['', Validators.required]
@@ -68,9 +70,16 @@ export class CategoriasComponent implements OnInit {
         this.listCategoria = this.listCategoria.filter(categoria => categoria._id !== id); // Filtrar la categoría eliminada de la lista
       },
       error => {
+        this.mostrarError("Hay productos en la categoría", "Accion inválida");
         console.error('Error al eliminar categoría:', error);
       }
     );
+  }
+
+  mostrarError(mensaje:string, Titulo:string) {
+    this.toastr.error(mensaje, Titulo,
+      {positionClass : "toast-top-right",}
+   );
   }
 
 }
