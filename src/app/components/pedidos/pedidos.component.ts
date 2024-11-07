@@ -51,5 +51,20 @@ export class PedidosComponent implements OnInit{
             console.error('Error al actualizar el estado:', error);
         }
     );
-}
+  }
+
+  cambiarEstado(pedido: Pedido): void {
+    const estados = ['Pendiente', 'En Proceso', 'Completado', 'Cancelado'];
+    const currentIndex = estados.indexOf(pedido.estado);
+
+    // Si el estado actual es "Cancelado", no cambiar el estado
+    if (pedido.estado === 'Cancelado') return;
+
+    // Calcula el siguiente estado
+    const nextIndex = currentIndex + 1;
+    pedido.estado = estados[nextIndex];
+
+    // Llama a actualizarEstado para enviar el cambio al backend
+    this.actualizarEstado(pedido._id, pedido.estado);
+  }
 }

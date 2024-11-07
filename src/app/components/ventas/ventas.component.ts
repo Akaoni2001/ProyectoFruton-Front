@@ -26,6 +26,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
 })
 export class VentasComponent {
 
+  isVentaRegistrable = false;
+
   isVisible = {
     elemento1: true,
     elemento2: false
@@ -77,9 +79,23 @@ export class VentasComponent {
     this.isVisible.elemento2=false;
   }
 
-  calcularVuelto(montoEntregado:string) {
-    this.vuelto = parseFloat(montoEntregado) >= this.total ? parseFloat(montoEntregado) - this.total : (alert('El monto entregado es insuficiente'), 0);
-  }
+  calcularVuelto(montoEntregado: string) {
+    const monto = parseFloat(montoEntregado);
+    if (monto >= this.total) {
+      this.vuelto = monto - this.total;
+      this.isVentaRegistrable = true; // Habilita el botón si el monto es suficiente
+    } else {
+      alert('El monto entregado es insuficiente');
+      this.vuelto = 0;
+      this.isVentaRegistrable = false; // Deshabilita el botón si el monto es insuficiente
+    }
+  }
+
+  verificarMonto(montoEntregado: string) {
+    // Convierte el monto entregado a un número y verifica la condición
+    const monto = parseFloat(montoEntregado);
+    this.isVentaRegistrable = monto >= this.total; // Solo habilita si el monto es suficiente
+  }
 
   obtenerProductos() {
     this._productosService.getProductos().subscribe(data => {
