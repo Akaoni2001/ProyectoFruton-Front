@@ -59,7 +59,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TipoProductoComponent,
     CrearTipoproductoComponent,
     ModalesComponent,
-    PedidosComponent
+    PedidosComponent,
   ],
   imports: [ 
     BrowserAnimationsModule,

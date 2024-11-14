@@ -18,6 +18,7 @@ import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crea
 import { ModalesComponent } from './components/modales/modales.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 
+
 const routes: Routes = [
 
   {path:'', component:LoginComponent},
