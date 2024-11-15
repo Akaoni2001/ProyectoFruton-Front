@@ -8,6 +8,15 @@
                   <div class="card-body text-center">
                       <span class="titulo">LISTADO DE PRODUCTOS</span>
                       <button class="btn btn-success float-end" routerLink="/crear-producto">NUEVO</button>
+                                            
+                      <div class="filtroCategoria">
+                        <select [(ngModel)]="buscar_categoria">
+                          <option value="todos">Todos los productos</option>
+                          <option  *ngFor="let categoria of listCategoria" value={{categoria.nombreCategoria}}>
+                            {{categoria.nombreCategoria}}</option>                            
+                        </select>
+                        <button class="btn btn-success float-end" (click)="buscarProducto()">BUSCAR</button>
+                      </div>
                       <table *ngIf="listProductos.length > 0" class="table table-striped mt-2">
                           <thead>
                             <tr>
@@ -21,16 +30,19 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let producto of listProductos">  
+                            <tr *ngFor="let producto of listProductos; let i=index">  
                               <td><img src={{producto.imagen}} alt="" width="80px"></td>
                               <td>{{ producto.nombre}}</td>
-                              <td>{{ producto.descripcion}}</td>
+                              <td>{{ producto.descripcion.split(' ').slice(0, 8).join(' ')}}...</td>
                               <td>{{ producto.categoria}}</td>
                               <td>{{ producto.precio}}</td>
                               <td>{{ producto.stock}}</td>
                               <td>
                                   <i [routerLink]="['/editar-producto', producto._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
-                                  <i (click)="eliminarProducto(producto._id)" class="fas fa-solid fa-trash text-danger"></i>
+                                  <i [ngClass]="{
+                                    'fa-regular fa-eye': producto.estado === true,
+                                    'fa-solid fa-eye-low-vision': producto.estado === false
+                                  }" (click)="actualizarEstado(producto._id, producto.estado, i)"></i>
                               </td>
                             </tr>
             
@@ -40,7 +52,6 @@
                   </div>
               </div>
           </div>
-  
       </div>
   </div>
   </div>
