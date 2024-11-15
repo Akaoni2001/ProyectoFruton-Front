@@ -1,20 +1,17 @@
-import { Producto } from "./producto";
-import { Pedido } from "./pedido";
-
 export class Reportes{
-    _id: number; 
-    nombreCliente: string;
-    pedido:Pedido[]; 
-    descripcionReclamo: string;
-    tipoReclamo: string;
-    fechaReclamo: Date; 
+    _id?: number; 
+    cliente: string;
+    nPedido:number;
+    fechaPedido:Date;
+    descripcion: string;
+    tipo: string;
+    fechaReclamo?: Date
 
-    constructor(_id: number, nombreCliente: string, pedidos: Pedido[], descripcion: string, tipoReclamo: string, fechaReclamo: Date) {
-        this._id = _id; 
-        this.nombreCliente = nombreCliente;
-        this.pedido = pedidos;
-        this.descripcionReclamo = descripcion;
-        this.tipoReclamo = tipoReclamo;
-        this.fechaReclamo = fechaReclamo;
+    constructor(cliente: string,nPedido:number, fechaPedido:Date, descripcion: string, tipo: string) {
+        this.cliente = cliente;
+        this.nPedido = nPedido;
+        this.fechaPedido = fechaPedido;
+        this.descripcion = descripcion;
+        this.tipo = tipo;
     }
 }
