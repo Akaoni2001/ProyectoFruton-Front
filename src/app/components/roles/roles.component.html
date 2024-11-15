@@ -1,42 +1,6 @@
 <div class="app-container">
     <app-sidenav></app-sidenav>
     <div class="main-content">
-        <div class="container mt-5">
-            <h1>Roles</h1>
-            <form [formGroup]="rolForm" (ngSubmit)="agregarRol()">
-                <div class="row">
-                    <div class="col-md-8">
-                        <input type="text" formControlName="nombreCategoria" class="form-control" placeholder="Nombre de la categoria" required>
-                        <div class="text-danger" *ngIf="rolForm.get('nombreCategoria')?.hasError('required') && rolForm.get('nombreCategoria')?.touched">
-                            <span>El nombre de la categoria <strong>es obligatorio</strong></span>
-                        </div>
-                    </div>
-                    <div class="col-md-2 float-end">
-                        <button type="submit" class="btn btn-primary w-100" >Registrar Rol</button>
-                    </div>
-                </div>
-            </form>
-            <br>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre de la categoria</th>
-                    <th scope="col">Fecha de creacion</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let rol of listRol; let i = index">
-                    <th scope="row">{{i + 1}}</th>
-                    <td>{{rol.nombreRol}}</td>
-                    <td>{{rol.fechaCreacion | date:'yyyy-MM-dd'}}</td>
-                    <td>
-                        
-                        <i (click)="eliminarRol(rol._id)" class="fas fa-solid fa-trash text-danger"></i>
-                    </td>
-                  </tr>
-                </tbody>
-            </table>
-        </div>
+        
     </div>
 </div>

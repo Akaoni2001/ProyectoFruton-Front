@@ -33,14 +33,14 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <select formControlName="role" class="form-select">
-                                        <option value="" disabled selected>Seleccione rol</option>
-                                        <option  *ngFor="let role of listRol" value={{role.nombreRol}}>
-                                            {{role.nombreRol}}</option>
-                                    </select>
-                                    <div class="text-danger"
-                                        *ngIf="usuarioForm.get('role')?.hasError('required') && usuarioForm.get('role')?.touched">
-                                        <span>El rol del usuario<strong> es obligatorio</strong></span>
+                                    <select class="form-select" formControlName="role">
+                                        <option value="" disabled selected>Seleccione un rol</option>
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Operador">Operador</option>
+                                        <option value="Cajero">Cajero</option>
+                                      </select>
+                                    <div class="text-danger" *ngIf="usuarioForm.get('role')?.hasError('required') && usuarioForm.get('role')?.touched">
+                                        <span>El role del usuario<strong> es obligatorio</strong></span>
                                     </div>
                                 </div>
                                 <div class="d-grid gap-2">

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule} from '@angular/common/http';
@@ -28,12 +29,7 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TipoProductoComponent } from './components/tipo-producto/tipo-producto.component';
 import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crear-tipoproducto.component';
-import { ModalesComponent } from "./components/modales/modales.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { PedidosComponent } from './components/pedidos/pedidos.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -57,24 +53,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReportesComponent,
     DashboardComponent,
     TipoProductoComponent,
-    CrearTipoproductoComponent,
-    ModalesComponent,
-    PedidosComponent,
+    CrearTipoproductoComponent
   ],
-  imports: [ 
-    BrowserAnimationsModule,
-    ToastrModule.forRoot( {positionClass: 'toast-top-right',}),
+  imports: [
     BrowserModule,
     //firebase
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    NgbModule
-],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

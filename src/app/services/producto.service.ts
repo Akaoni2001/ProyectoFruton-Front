@@ -29,21 +29,6 @@ export class ProductoService {
   }
 
   editarProducto(id:string,producto:Producto):Observable<any>{
-    return this.http.put(`${this.url}/editar-producto/${id}`, producto);
+    return this.http.put(`${this.url}/${id}`, producto);
   }
-  
-  actualizarEstado(id:string|undefined,estado:Boolean):Observable<any>{
-    return this.http.put(`${this.url}/${id}`, {estado});
-  }
-
-  actualizarStock(ids: (string | undefined)[], stocks: number[]): Observable<any> {
-    const body = ids.map((id, index) => ({  
-      id: id,
-      stock: stocks[index]
-    }));
-  
-    return this.http.put(`${this.url}`, body);
-  }
-
-  
 }

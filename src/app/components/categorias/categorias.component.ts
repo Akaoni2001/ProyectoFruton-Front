@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
-import { ToastrService } from 'ngx-toastr';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 
 @Component({
   selector: 'app-categorias',
@@ -14,23 +11,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class CategoriasComponent implements OnInit {
 
   
+  nombreUsuario :String;
   listCategoria: Categoria[] = [];
   categoriaForm: FormGroup;
 
   constructor(
     private _categoriaServices: CategoriaService,
-    private fb: FormBuilder,
-    private toastr: ToastrService,
-    private modalService: NgbModal
+    private fb: FormBuilder
   ) {
+    this.nombreUsuario = "Pepito Alcachofa";
     this.categoriaForm = this.fb.group({
       nombreCategoria: ['', Validators.required]
     });
   }
 
-  open(content: any) {
-    this.modalService.open(content);
-  }
   ngOnInit(): void {
     this.obtenerCategorias();
   }
@@ -76,16 +70,9 @@ export class CategoriasComponent implements OnInit {
         this.listCategoria = this.listCategoria.filter(categoria => categoria._id !== id); // Filtrar la categoría eliminada de la lista
       },
       error => {
-        this.mostrarError("Hay productos en la categoría", "Accion inválida");
         console.error('Error al eliminar categoría:', error);
       }
     );
-  }
-
-  mostrarError(mensaje:string, Titulo:string) {
-    this.toastr.error(mensaje, Titulo,
-      {positionClass : "toast-top-right",}
-   );
   }
 
 }

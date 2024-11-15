@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { Rol } from 'src/app/models/rol';
-import { RolService } from 'src/app/services/rol.service';
 
 @Component({
   selector: 'app-crear-usuario',
@@ -16,13 +14,11 @@ export class CrearUsuarioComponent {
   usuarioForm: FormGroup;
   titulo='Crear usuario';
   id:string | null;
-  listRol: Rol[] = [];
 
   constructor(private fb:FormBuilder,
     private router:Router,
     private _userService:UserService,
-    private aRouter: ActivatedRoute,
-    private _rolService: RolService
+    private aRouter: ActivatedRoute
   ){this.usuarioForm=this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
@@ -51,21 +47,6 @@ agregarUsuario(){
           this.usuarioForm.reset();
         })
 
-}
-ngOnInit():void{
-  this.obtenerRoles();
-}
-
-obtenerRoles() {
-  this._rolService.getRoles().subscribe(
-    data => {
-      console.log(data);
-      this.listRol = data;
-    },
-    error => {
-      console.log(error);
-    }
-  );
 }
 
 }

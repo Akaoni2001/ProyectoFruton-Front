@@ -17,17 +17,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <select formControlName="categoria" class="form-select">
-                                        <option value="" disabled selected>Seleccione categoria</option>
-                                        <option  *ngFor="let categoria of listCategoria" value={{categoria.nombreCategoria}}>
-                                            {{categoria.nombreCategoria}}</option>
-                                    </select>
+                                    <input type="text" formControlName="categoria" class="form-control"
+                                        placeholder="Categoria">
                                     <div class="text-danger"
                                         *ngIf="productoForm.get('categoria')?.hasError('required') && productoForm.get('categoria')?.touched">
                                         <span>La categoria del producto<strong> es obligatorio</strong></span>
                                     </div>
                                 </div>
-                                
                                 <div class="col-12">
                                     <input type="text" formControlName="descripcion" class="form-control"
                                         placeholder="Descripcion">
