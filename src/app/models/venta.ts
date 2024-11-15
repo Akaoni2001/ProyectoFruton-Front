@@ -3,16 +3,16 @@ import { Producto } from "./producto";
 export class Venta{
     _id?:number;
     nombreCliente: string;
-    producto:Producto;
-    cantidad: number;
-    precioProducto:number;
+    productos:Producto[];
+    cantidades: number[];
+    precioTotal:number;
     fechaVenta:Date;
 
-    constructor(nombreCliente:string, producto:Producto, cantidad:number, precioProducto:number,fechaVenta:Date){
-        this.nombreCliente= nombreCliente;
-        this.producto=producto;
-        this.cantidad=cantidad;
-        this.precioProducto=precioProducto;
+    constructor(nombreCliente:string, productos:Producto[], cantidades:number[], precioTotal:number,fechaVenta:Date){
+        this.nombreCliente = nombreCliente;
+        this.productos=productos;
+        this.cantidades=cantidades;
+        this.precioTotal=precioTotal;
         this.fechaVenta=fechaVenta;
     }
 }

@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TipoProducto } from 'src/app/models/tipo-producto';
 import { TipoProductoService } from 'src/app/services/tipo-producto.service';
 import { CategoriaService } from 'src/app/services/categoria.service';
-
+import { SidenavComponent } from '../sidenav/sidenav.component';
 @Component({
   selector: 'app-crear-tipoproducto',
   templateUrl: './crear-tipoproducto.component.html',
-  styleUrls: ['./crear-tipoproducto.component.css']
+  styleUrl: './crear-tipoproducto.component.css'
 })
 export class CrearTipoproductoComponent {
   tipoproductoForm: FormGroup;

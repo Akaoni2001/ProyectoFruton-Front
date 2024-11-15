@@ -15,6 +15,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TipoProductoComponent } from './components/tipo-producto/tipo-producto.component';
 import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crear-tipoproducto.component';
+import { ModalesComponent } from './components/modales/modales.component';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,9 @@ const routes: Routes = [
   {path:'tipo-producto', component:TipoProductoComponent},
   {path:'editar-tipoproducto/:id', component:CrearTipoproductoComponent},
   {path:'crear-tipoproducto', component:CrearTipoproductoComponent},
+  {path:'pedidos', component:PedidosComponent},
+  
+  {path:'modales', component:ModalesComponent},
   {path:'**', redirectTo: '', pathMatch: 'full'}
 
 ];

@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUpService } from 'src/app/services/imageUp.service';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
+import { Categoria } from 'src/app/models/categoria';
+import { CategoriaService } from 'src/app/services/categoria.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
 
@@ -17,6 +19,7 @@ export class CrearProductoComponent {
   productoForm: FormGroup;
   titulo='Crear producto';
   id:string | null;
+  listCategoria: Categoria[] = [];
 
  //firebase
 
@@ -31,6 +34,7 @@ export class CrearProductoComponent {
     private router: Router,
     private _productoService:ProductoService,
     private _imagenService: ImageUpService,
+    private _categoriaService:CategoriaService,
     private aRouter: ActivatedRoute,
     private storage: AngularFireStorage) {
     this.productoForm=this.fb.group({
@@ -69,6 +73,7 @@ export class CrearProductoComponent {
 
   ngOnInit():void{
     this.esEditar();
+    this.obtenerCategorias();
   }
 
   async agregarProducto(){
@@ -85,6 +90,7 @@ export class CrearProductoComponent {
       precio:this.productoForm.get('precio')?.value,
       stock:this.productoForm.get('stock')?.value,
       imagen:this.downloadURL,
+      estado:true
     }
 
     if(this.id !==null){
@@ -122,6 +128,18 @@ export class CrearProductoComponent {
         this.selectedFileUrl = data.imagen;
         this.downloadURL= data.imagen })
     }
+  }
+
+  obtenerCategorias() {
+    this._categoriaService.getCategorias().subscribe(
+      data => {
+        console.log(data);
+        this.listCategoria = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   onFileSelected(event: any): void {

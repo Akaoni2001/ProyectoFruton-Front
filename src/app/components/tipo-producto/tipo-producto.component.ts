@@ -7,10 +7,9 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 @Component({
   selector: 'app-tipo-producto',
   templateUrl: './tipo-producto.component.html',
-  styleUrls: ['./tipo-producto.component.css']
+  styleUrl: './tipo-producto.component.css'
 })
 export class TipoProductoComponent {
-
   listProductos: TipoProducto[]=[];
   categorias: any[] = [];
   

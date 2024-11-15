@@ -1,6 +1,33 @@
 <div class="app-container">
-    <app-sidenav></app-sidenav>
-    <div class="main-content">
-        
-    </div>
-</div>
+  <app-sidenav></app-sidenav>
+  <div class="main-content">
+    <div class="container mt-5">
+      <span class="titulo">GESTION DE RECLAMOS</span>
+
+      <table class="table table-striped mt-2">
+        <thead>
+          <tr >
+            <th scope="col">#</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">N° Pedido</th>
+            <th scope="col">Fecha Pedido</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Fecha Reporte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reporte of listReportes; let i = index">
+            <th scope="row">{{i + 1}}</th>
+            <td scope="col">{{reporte.cliente}}</td>
+            <td scope="col">{{reporte.nPedido }}</td>
+            <td scope="col">{{reporte.fechaPedido| date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td scope="col">{{reporte.tipo}}</td>
+            <td scope="col">{{reporte.descripcion}}</td>
+            <td scope="col">{{reporte.fechaReclamo | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>  
+  </div>
