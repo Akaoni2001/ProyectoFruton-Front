@@ -1,0 +1,45 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+        <div class="container mt-5">
+          <div class="row">
+              <div class="col-lg-8 offset-lg-2">
+                  <div class="card">
+                      <div class="card-body text-center">
+                          <span class="titulo">LISTADO RECEPCIÓN DE PRODUCTOS</span>
+                          <button class="btn btn-success float-end" routerLink="/crear-recepcionproductos">NUEVO</button>
+                          <table *ngIf="listProductos.length > 0" class="table table-striped mt-2">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Producto</th>
+                                  <th scope="col">Descripción</th>
+                                  <th scope="col">Categoria</th>
+                                  <th scope="col">Estado</th>
+                                  <th scope="col">Precio (S/.)</th>
+                                  <th scope="col"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let producto of listProductos">
+                                    <td>{{ producto.nombre}}</td>
+                                    <td>{{ producto.descripcion}}</td>
+                                    <td>{{ producto.categoria}}</td>
+                                    <td>{{ producto.estado}}</td>
+                                    <td>{{ producto.precio}}</td>
+                                    <td>
+                                        <i [routerLink]="['/editar-recepcionproductos', producto._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
+                                        <i (click)="eliminarRecepcionProducto(producto._id)" class="fas fa-solid fa-trash text-danger"></i>
+                                    </td>
+                                  </tr>
+                
+                              </tbody>
+                          </table>
+                          <h5 *ngIf="listProductos.length === 0" style="text-align: start; margin-top: 10px;">No hay productos para mostrar</h5>
+                      </div>
+                  </div>
+              </div>
+      
+          </div>
+      </div>
+      </div>
+</div>

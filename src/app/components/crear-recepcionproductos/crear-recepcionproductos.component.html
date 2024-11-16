@@ -1,0 +1,67 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <span class="titulo">{{titulo | uppercase}}</span>
+                            <form class="row g-3 mt-3" [formGroup]="recepcionproductosForm" (ngSubmit)="agregarRecepcionProducto()" (ngSubmit)="onSubmit()">
+                                <div class="col-md-12 ">
+                                    <input type="text" formControlName="producto" class="form-control"
+                                        placeholder="Producto">
+                                    <div class="text-danger"
+                                        *ngIf="recepcionproductosForm.get('producto')?.hasError('required') && recepcionproductosForm.get('producto')?.touched">
+                                        <span>El nombre del producto <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" formControlName="descripcion" class="form-control"
+                                        placeholder="Descripcion">
+                                    <div class="text-danger"
+                                        *ngIf="recepcionproductosForm.get('descripcion')?.hasError('required') && recepcionproductosForm.get('descripcion')?.touched">
+                                        <span class="float-start">La descripcion del producto <strong>es
+                                                obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-select" formControlName="categoria">
+                                        <option value="" disabled selected>Seleccione una Categoria</option>
+                                        <option *ngFor="let categoria of categorias" [value]="categoria._id">{{ categoria.nombreCategoria }}</option>
+                                      </select>
+                                    <div class="text-danger" *ngIf="recepcionproductosForm.get('categoria')?.hasError('required') && recepcionproductosForm.get('role')?.touched">
+                                        <span>La categoria del producto<strong> es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 "> 
+                                    <input type="text" formControlName="estado" class="form-control"
+                                        placeholder="Estado">
+                                    <div class="text-danger"
+                                        *ngIf="recepcionproductosForm.get('estado')?.hasError('required')  && recepcionproductosForm.get('estado')?.touched">
+                                        <span>El estado del producto <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <input type="number" formControlName="precio" class="form-control"
+                                        placeholder="Precio">
+                                    <div class="text-danger"
+                                        *ngIf="recepcionproductosForm.get('precio')?.hasError('required')  && recepcionproductosForm.get('precio')?.touched">
+                                        <span>El precio del producto <strong>es obligatorio</strong></span>
+                                    </div>
+                                </div>
+                
+                                <div class="d-grid gap-2">
+                                    <button type="submit" [disabled]="recepcionproductosForm.invalid"
+                                        class="btn btn-success">ACEPTAR</button>
+                                    <button routerLink="/recepcion-productos" class="btn btn-secondary">VOLVER</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

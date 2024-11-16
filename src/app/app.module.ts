@@ -28,6 +28,8 @@ import { ReportesComponent } from './components/reportes/reportes.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TipoProductoComponent } from './components/tipo-producto/tipo-producto.component';
 import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crear-tipoproducto.component';
+import { RecepcionProductosComponent } from './components/recepcion-productos/recepcion-productos.component';
+import { CrearRecepcionproductosComponent } from './components/crear-recepcionproductos/crear-recepcionproductos.component';
 import { ModalesComponent } from "./components/modales/modales.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -59,6 +61,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CrearTipoproductoComponent,
     ModalesComponent,
     PedidosComponent,
+    RecepcionProductosComponent,
+    CrearRecepcionproductosComponent,
   ],
   imports: [ 
     BrowserAnimationsModule,
