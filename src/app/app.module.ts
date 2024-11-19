@@ -33,6 +33,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -58,7 +59,7 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
     TipoProductoComponent,
     CrearTipoproductoComponent,
     ModalesComponent,
-    PedidosComponent
+    PedidosComponent,
   ],
   imports: [ 
     BrowserAnimationsModule,
@@ -72,6 +73,7 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    NgbModule
 ],
   providers: [],
   bootstrap: [AppComponent]

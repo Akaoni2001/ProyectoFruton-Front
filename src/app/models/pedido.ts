@@ -6,6 +6,7 @@ export class Pedido {
     productos:Producto[]; 
     cantidades: number[];
     estado: string; 
+    fechaPedido?:Date;
 
     constructor(_id: number, nombreCliente: string, productos: Producto[], cantidades: number[], estado: string = '') {
         this._id = _id; 

@@ -67,6 +67,7 @@ export class CrearProductoComponent {
       precio:this.productoForm.get('precio')?.value,
       stock:this.productoForm.get('stock')?.value,
       imagen:this.downloadURL,
+      estado:true
     }
 
     if(this.id !==null){
