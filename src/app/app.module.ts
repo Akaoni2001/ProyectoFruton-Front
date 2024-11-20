@@ -58,7 +58,7 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
     TipoProductoComponent,
     CrearTipoproductoComponent,
     ModalesComponent,
-    PedidosComponent
+    PedidosComponent,
   ],
   imports: [ 
     BrowserAnimationsModule,
