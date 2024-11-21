@@ -1,0 +1,60 @@
+<div class="app-container">
+    <app-sidenav></app-sidenav>
+    <div class="main-content">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+              <div class="card-body text-center">
+                <span class="titulo">STOCK POR CATEGORIA</span>
+  
+                <table *ngIf="listProductos.length > 0" class="table table-striped mt-2">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Categoria</th>
+                      <th scope="col">Stock</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let categoria of listCategoria; let i=index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ categoria.nombreCategoria }}</td>
+                      <td>{{ stockPorCategoria[categoria.nombreCategoria] || 0 }}</td>
+                      <td>
+                        <i class="fas fa-search text-primary" (click)="abrirModal(categoria.nombreCategoria)"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h5 style="text-align: start; margin-top: 10px;" *ngIf="listProductos.length == 0">No hay productos para mostrar</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div *ngIf="mostrarModal" class="modal-backdrop fade show"></div>
+  
+    <!-- Modal -->
+    <div *ngIf="mostrarModal" class="modal fade show" tabindex="-1" style="display: block;" aria-labelledby="productosModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productosModalLabel">Productos de la categoría</h5>
+            <button type="button" class="btn-close" aria-label="Close" (click)="cerrarModal()"></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li *ngFor="let producto of productosPorCategoria">
+                {{ producto.nombre }} - Stock: {{ producto.stock }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
