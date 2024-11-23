@@ -1,93 +1,33 @@
 <div class="app-container">
-    <app-sidenav></app-sidenav>
-    <div class="main-content">
-      <div class="container mt-5">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <span class="titulo">GESTION DE RECLAMOS</span>
-                        <!--<button class="btn btn-success float-end" (click)="abrirModal()">NUEVO</button>-->run 
-                        <table class="table table-striped mt-2">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Cliente</th>
-                                <th scope="col">Producto</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Tipo de Reclamo</th>
-                                <th scope="col">Fecha</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>  
-                                
-                              </tr>
-              
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-    
-        </div>
-    </div>
-    </div>
+  <app-sidenav></app-sidenav>
+  <div class="main-content">
+    <div class="container mt-5">
+      <span class="titulo">GESTION DE RECLAMOS</span>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reclamoModal">
-      Nuevo Reclamo
-    </button>
-    <!-- Modal -->
-  <div class="modal " id="reclamoModal" tabindex="-1" aria-labelledby="reclamoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="reclamoModalLabel">Registrar Reclamo</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <!-- Campo Producto -->
-            <div class="mb-3">
-              <label for="producto" class="form-label">Producto</label>
-              <input type="text" class="form-control" id="producto" placeholder="Nombre del producto">
-            </div>
+      <table class="table table-striped mt-2">
+        <thead>
+          <tr >
+            <th scope="col">#</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">N° Pedido</th>
+            <th scope="col">Fecha Pedido</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Fecha Reporte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reporte of listReportes; let i = index">
+            <th scope="row">{{i + 1}}</th>
+            <td scope="col">{{reporte.cliente}}</td>
+            <td scope="col">{{reporte.nPedido }}</td>
+            <td scope="col">{{reporte.fechaPedido| date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td scope="col">{{reporte.tipo}}</td>
+            <td scope="col">{{reporte.descripcion}}</td>
+            <td scope="col">{{reporte.fechaReclamo | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          </tr>
 
-            <!-- Campo Descripción del reclamo -->
-            <div class="mb-3">
-              <label for="descripcion" class="form-label">Descripción del reclamo</label>
-              <input type="text" class="form-control" id="descripcion" placeholder="Descripción detallada">
-            </div>
-
-            <!-- Campo Categoría -->
-            <div class="mb-3">
-              <label for="categoria" class="form-label">Categoría</label>
-              <input type="text" class="form-control" id="categoria" placeholder="Categoría del producto">
-            </div>
-
-            <!-- Campo Tipo de Reclamo -->
-            <div class="mb-3">
-              <label for="tipoReclamo" class="form-label">Tipo de reclamo</label>
-              <select class="form-select" id="tipoReclamo">
-                <option selected>Seleccionar</option>
-                <option value="devolucion">Devolución</option>
-                <option value="cambio">Cambio</option>
-              </select>
-            </div>
-
-            <!-- Campo Stock -->
-            <div class="mb-3">
-              <label for="stock" class="form-label">Stock</label>
-              <input type="number" class="form-control" id="stock" placeholder="Cantidad en stock">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
-          <button type="button" class="btn btn-success">Aceptar</button>
-        </div>
-      </div>
-    </div>
+        </tbody>
+      </table>
+    </div>  
   </div>
-  
-</div>

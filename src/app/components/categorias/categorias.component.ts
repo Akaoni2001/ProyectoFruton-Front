@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
-
 import { ToastrService } from 'ngx-toastr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+
 @Component({
   selector: 'app-categorias',
   templateUrl: './categorias.component.html',
@@ -18,13 +20,17 @@ export class CategoriasComponent implements OnInit {
   constructor(
     private _categoriaServices: CategoriaService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private modalService: NgbModal
   ) {
     this.categoriaForm = this.fb.group({
       nombreCategoria: ['', Validators.required]
     });
   }
 
+  open(content: any) {
+    this.modalService.open(content);
+  }
   ngOnInit(): void {
     this.obtenerCategorias();
   }
