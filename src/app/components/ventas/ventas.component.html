@@ -28,9 +28,11 @@
         </div>
 
 
-        <div class="p2">
+        <div class="p2">                         
           <div class="btn btn-danger" (click)="abrirModal()">Continuar</div>
         </div>
+
+
 
         <!--modal-->
         <div class="modal-overlay" *ngIf="isVisible.elemento2"></div>
@@ -43,21 +45,41 @@
 
           <!-- Campo para ingresar el monto entregado -->
           <label for="montoEntregado">Monto entregado:</label>
-          <input type="number" #monto (input)="verificarMonto(monto.value)" />
-          <div class="btn btn-success" (click)="calcularVuelto(monto.value)"> Calcular </div>
+<input type="number" #monto (input)="verificarMonto(monto.value)" [disabled]="inputsDeshabilitados" />
+<div class="btn btn-success" (click)="calcularVuelto(monto.value)" [class.disabled]="inputsDeshabilitados"> Calcular </div>
 
-          <!-- Mostrar el vuelto calculado -->
-          <p>Vuelto: {{ vuelto | currency:'S/.':'symbol':'1.2-2' }}</p>
+<div style="display: flex; flex-flow: row wrap; justify-content: center; width: 100%;">
+  <div>
+    <img src="/assets/fotos/yapelogo.png" alt="yape" width="80px" style="cursor: pointer;"
+      (click)="seleccionarMetodoPago('Yape')">
+  </div>
+  <div>
+    <img src="/assets/fotos/plinLogo.jpg" alt="plin" width="80px" style="cursor: pointer;"
+      (click)="seleccionarMetodoPago('Plin')">
+  </div>
+</div>
 
-          <!-- Botón para cerrar el modal -->
-          <button class="btn btn-success" (click)="registrarVenta(cliente.value)" [disabled]="!isVentaRegistrable">
-            Registrar Venta
-          </button>
+<!-- Mostrar el vuelto calculado -->
+<p>Vuelto: {{ vuelto | currency:'S/.':'symbol':'1.2-2' }}</p>
+
+<!-- Botón para cerrar el modal -->
+<button class="btn btn-success" (click)="registrarVenta(cliente.value)" [disabled]="!isVentaRegistrable">
+  Registrar Venta
+</button>
           <div class="btn btn-success" (click)="closeModal()" style=" margin-left: 10px;">Cancelar</div>
-
         </div>
 
+
+
+
+
       </div>
+
+
+
+
+
+
     </div>
 
     <!--catalago-->
