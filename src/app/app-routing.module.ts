@@ -18,29 +18,30 @@ import { CrearTipoproductoComponent } from './components/crear-tipoproducto/crea
 import { ModalesComponent } from './components/modales/modales.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { StockCategoriaComponent } from './components/stock-categoria/stock-categoria.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
 
   {path:'', component:LoginComponent},
-  {path:'listar-productos', component:ListarProductosComponent},
-  {path:'crear-producto', component:CrearProductoComponent},
-  {path:'editar-producto/:id', component:CrearProductoComponent},
-  {path:'catalogo', component:CatalogoComponent},
-  {path:'usuarios', component:UsersComponent},
-  {path:'crear-usuario', component:CrearUsuarioComponent},
-  {path:'ventas',component:VentasComponent},
-  {path:'produccion', component:ProduccionComponent},
-  {path:'categorias', component:CategoriasComponent},
-  {path:'inventario', component:InventarioComponent},
-  {path:'roles', component:RolesComponent},
-  {path:'reportes', component:ReportesComponent},
-  {path:'dashboard', component:DashboardComponent},
-  {path:'tipo-producto', component:TipoProductoComponent},
-  {path:'editar-tipoproducto/:id', component:CrearTipoproductoComponent},
-  {path:'crear-tipoproducto', component:CrearTipoproductoComponent},
-  {path:'pedidos', component:PedidosComponent},
-  {path:'stock-categoria', component:StockCategoriaComponent},
+  {path:'listar-productos', component:ListarProductosComponent, canActivate: [AuthGuard] },
+  {path:'crear-producto', component:CrearProductoComponent,canActivate: [AuthGuard]},
+  {path:'editar-producto/:id', component:CrearProductoComponent,canActivate: [AuthGuard]},
+  {path:'catalogo', component:CatalogoComponent, canActivate: [AuthGuard]},
+  {path:'usuarios', component:UsersComponent,canActivate: [AuthGuard]},
+  {path:'crear-usuario', component:CrearUsuarioComponent,canActivate: [AuthGuard]},
+  {path:'ventas',component:VentasComponent,canActivate: [AuthGuard]},
+  {path:'produccion', component:ProduccionComponent,canActivate: [AuthGuard]},
+  {path:'categorias', component:CategoriasComponent, canActivate: [AuthGuard]},
+  {path:'inventario', component:InventarioComponent,canActivate: [AuthGuard]},
+  {path:'roles', component:RolesComponent,canActivate: [AuthGuard]},
+  {path:'reportes', component:ReportesComponent,canActivate: [AuthGuard]},
+  {path:'dashboard', component:DashboardComponent,canActivate: [AuthGuard]},
+  {path:'tipo-producto', component:TipoProductoComponent,canActivate: [AuthGuard]},
+  {path:'editar-tipoproducto/:id', component:CrearTipoproductoComponent,canActivate: [AuthGuard]},
+  {path:'crear-tipoproducto', component:CrearTipoproductoComponent,canActivate: [AuthGuard]},
+  {path:'pedidos', component:PedidosComponent,canActivate: [AuthGuard]},
+  {path:'stock-categoria', component:StockCategoriaComponent,canActivate: [AuthGuard]},
   
   {path:'modales', component:ModalesComponent},
   {path:'**', redirectTo: '', pathMatch: 'full'}

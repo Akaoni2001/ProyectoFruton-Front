@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Producto } from '../models/producto';
@@ -12,28 +12,35 @@ export class ProductoService {
 
   constructor(private http: HttpClient) { }
 
-  getProductos(): Observable<any>{
-    return this.http.get(this.url);
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // Usa el TokenService si ya lo implementaste
+    return new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
   }
 
-  eliminarProducto(id:string):Observable<any>{
-    return this.http.delete(`${this.url}/${id}`);
+  getProductos(): Observable<any> {
+    return this.http.get(this.url, { headers: this.getAuthHeaders() });
   }
 
-  guardarProducto(producto: Producto):Observable<any>{
-    return this.http.post(this.url, producto);
+  eliminarProducto(id: string): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`, { headers: this.getAuthHeaders() });
   }
 
-  obtenerProducto(id:string):Observable<any>{
-    return this.http.get(`${this.url}/${id}`);
+  guardarProducto(producto: Producto): Observable<any> {
+    return this.http.post(this.url, producto, { headers: this.getAuthHeaders() });
   }
 
-  editarProducto(id:string,producto:Producto):Observable<any>{
-    return this.http.put(`${this.url}/editar-producto/${id}`, producto);
+  obtenerProducto(id: string): Observable<any> {
+    return this.http.get(`${this.url}/${id}`, { headers: this.getAuthHeaders() });
+  }
+
+  editarProducto(id: string, producto: Producto): Observable<any> {
+    return this.http.put(`${this.url}/editar-producto/${id}`, producto, { headers: this.getAuthHeaders() });
   }
   
-  actualizarEstado(id:string|undefined,estado:Boolean):Observable<any>{
-    return this.http.put(`${this.url}/${id}`, {estado});
+  actualizarEstado(id: string | undefined, estado: Boolean): Observable<any> {
+    return this.http.put(`${this.url}/${id}`, { estado }, { headers: this.getAuthHeaders() });
   }
 
   actualizarStock(ids: (string | undefined)[], stocks: number[]): Observable<any> {
@@ -41,8 +48,7 @@ export class ProductoService {
       id: id,
       stock: stocks[index]
     }));
-  
-    return this.http.put(`${this.url}`, body);
+    return this.http.put(`${this.url}`, body, { headers: this.getAuthHeaders() });
   }
 
   
