@@ -1,4 +1,4 @@
 .card-img-top {
-    height: 300px; /* Puedes ajustar esta altura según tus necesidades */
-    object-fit: cover; /* Asegura que la imagen mantenga sus proporciones y llene el contenedor */
+    height: 300px; 
+    object-fit: cover; 
 }
