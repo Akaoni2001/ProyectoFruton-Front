@@ -19,16 +19,25 @@ export class UserService {
     return this.http.post(`${this.url}/login`, user, { headers });
   }
 
-  getUsers(): Observable<any>{
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get(`${this.url}/usuarios`, { headers});
+  getUsers(): Observable<any> {
+    const token = localStorage.getItem('token'); // Alternativamente, usa this.tokenService.getToken()
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`); // Añade el encabezado Authorization
+    return this.http.get(`${this.url}/usuarios`, { headers });
   }
   delete_user(id: string): Observable<any> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const token = localStorage.getItem('token'); // Alternativamente, usa this.tokenService.getToken()
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
     return this.http.delete(`${this.url}/usuario/eliminar/${id}`, { headers });
   }
   registrar(data: any): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post(`${this.url}/registrar`, data, { headers: headers });
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.url}/registrar`, data, { headers });
   }
 }

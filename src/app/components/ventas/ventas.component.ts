@@ -7,6 +7,7 @@ import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ToastrService } from 'ngx-toastr';
 import { trigger, transition, style, animate } from '@angular/animations';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-ventas',
@@ -58,6 +59,19 @@ export class VentasComponent {
     this.obtenerVentas();
     
   }
+
+  inputsDeshabilitados: boolean = false; // Para controlar el estado de los inputs
+
+seleccionarMetodoPago(metodo: string): void {
+  // Mensaje de confirmación o registro del método seleccionado
+  console.log(`Método de pago seleccionado: ${metodo}`);
+
+  // Deshabilitar los inputs
+  this.inputsDeshabilitados = true;
+
+  // Habilitar el botón de "Registrar Venta"
+  this.isVentaRegistrable = true;
+}
 
   sumT(valor:number){
     this.total += valor;
@@ -207,6 +221,8 @@ export class VentasComponent {
         fechaVenta: new Date()
       };
 
+      this.mostrarBoleta(nuevaVenta.nombreCliente, 20)
+
       this._ventasService.addVenta(nuevaVenta).subscribe(
         data => {
           console.log(data);
@@ -217,6 +233,9 @@ export class VentasComponent {
       this.mostrarSatisfaccion("Venta realizada con éxito", "Venta registrada");
       this.listaPedidos=[];
       this.total=0;
+      this.inputsDeshabilitados = false;
+      this.isVentaRegistrable = false;
+
       this.closeModal();
       this.isVisible.elemento1=true;
         },
@@ -263,6 +282,60 @@ export class VentasComponent {
   isRowExpanded(index: number): boolean {
     return this.expandedRows.has(index);
   }
+
+
+  mostrarBoleta(nombreCliente: string, montoEntregado: number) {
+    const pdf = new jsPDF();
+  
+    // Encabezado
+    pdf.setFontSize(20);
+    pdf.text('Fruton', 105, 15, { align: 'center' });
+    pdf.setFontSize(12);
+    pdf.text('Boleta de Venta', 105, 25, { align: 'center' });
+    pdf.setFontSize(10);
+  
+    // Fecha de venta
+    const fechaVenta = new Date().toLocaleString();
+    pdf.text(`Fecha: ${fechaVenta}`, 10, 35);
+  
+    // Información del cliente
+    pdf.text(`Cliente: ${nombreCliente}`, 10, 45);
+  
+    // Tabla de productos
+    let startY = 55;
+    pdf.setFontSize(12);
+    pdf.text('Detalle de Productos:', 10, startY);
+  
+    startY += 10;
+    pdf.setFontSize(10);
+    pdf.text('Producto', 10, startY);
+    pdf.text('Precio (S/.)', 80, startY, { align: 'right' });
+    pdf.text('Cantidad', 120, startY, { align: 'right' });
+    pdf.text('Subtotal (S/.)', 160, startY, { align: 'right' });
+  
+    this.listaPedidos.forEach((producto) => {
+      startY += 7;
+      pdf.text(producto.nombre, 10, startY);
+      pdf.text(producto.precio.toFixed(2), 80, startY, { align: 'right' });
+      pdf.text(producto.cantidad.toString(), 120, startY, { align: 'right' });
+      pdf.text((producto.precio * producto.cantidad).toFixed(2), 160, startY, { align: 'right' });
+    });
+  
+
+    
+    // Información del total
+    startY += 15;
+    pdf.setFontSize(12);
+    pdf.text(`Total: S/. ${this.total.toFixed(2)}`, 10, startY);
+    pdf.text(`Metodo pago : yape`, 10, startY + 5);
+    pdf.text(`Vuelto: S/. ${this.vuelto.toFixed(2)}`, 10, startY + 10);
+  
+    // Descargar el PDF o mostrarlo en el navegador
+    pdf.save(`Boleta_${nombreCliente}_${fechaVenta}.pdf`);
+  }
+  
+
+
 /* 
   onSubmit(): void {
     this.newVenta.fechaVenta = new Date();

@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TokenService } from 'src/app/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,13 @@ export class LoginComponent implements OnInit {
   public identity: any;
   public data_error: any;
   public data_error_vacio: any;
+  
 
   constructor(
     private fb: FormBuilder,
     private _userService: UserService,
     private _router: Router,
+    private tokenService: TokenService,
   ) { 
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +39,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
-      console.log('Form is valid, sending login request...');
       const user = new User(
         '',
         '',
@@ -44,23 +46,13 @@ export class LoginComponent implements OnInit {
         this.loginForm.get('password')?.value,
         '',
       );
-
+  
       this._userService.login(user).subscribe(
         response => {
           console.log('Login response:', response);
-          this.token = response.jwt;
-          localStorage.setItem('token', this.token);
-
-          this._userService.login(user).subscribe(
-            response => {
-              console.log('User identity response:', response);
-              localStorage.setItem('identity', JSON.stringify(response.user));
-              this._router.navigate(['/dashboard']);
-            },
-            error => {
-              console.error('Error getting user identity:', error);
-            }
-          );
+          this.tokenService.setToken(response.jwt); // Guarda el token usando el TokenService
+          localStorage.setItem('identity', JSON.stringify(response.user));
+          this._router.navigate(['/dashboard']);
         },
         error => {
           console.error('Login error:', error);
@@ -68,8 +60,11 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
-      console.log('Form is invalid');
       this.data_error_vacio = 'Por favor, complete todos los campos';
     }
+  }
+  logout() {
+    this.tokenService.logout(); // Limpiar el token
+    this._router.navigate(['/login']); // Redirigir a la página de inicio de sesión
   }
 }

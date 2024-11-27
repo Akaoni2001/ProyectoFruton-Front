@@ -34,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StockCategoriaComponent } from './components/stock-categoria/stock-categoria.component';
 
 
 
@@ -60,6 +61,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CrearTipoproductoComponent,
     ModalesComponent,
     PedidosComponent,
+    StockCategoriaComponent
   ],
   imports: [ 
     BrowserAnimationsModule,
