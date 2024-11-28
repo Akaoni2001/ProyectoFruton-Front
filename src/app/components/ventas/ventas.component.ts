@@ -60,11 +60,12 @@ export class VentasComponent {
     
   }
 
+  metodoPago : string = "Efectivo";
   inputsDeshabilitados: boolean = false; // Para controlar el estado de los inputs
 
 seleccionarMetodoPago(metodo: string): void {
   // Mensaje de confirmación o registro del método seleccionado
-  console.log(`Método de pago seleccionado: ${metodo}`);
+  console.log(`Método de pago seleccionado: ${this.metodoPago=metodo}`);
 
   // Deshabilitar los inputs
   this.inputsDeshabilitados = true;
@@ -77,8 +78,8 @@ seleccionarMetodoPago(metodo: string): void {
     this.total += valor;
   }
 
-  abrirModal() {    
-    if(this.listaPedidos.length!=0){
+  abrirModal() {   
+     if(this.listaPedidos.length!=0){
     this.isVisible.elemento2 = true;
     this.brillo = 0.6;    
     }
@@ -223,6 +224,8 @@ seleccionarMetodoPago(metodo: string): void {
 
       this.mostrarBoleta(nuevaVenta.nombreCliente, 20)
 
+      if(this.editingVentaIndex === null){
+
       this._ventasService.addVenta(nuevaVenta).subscribe(
         data => {
           console.log(data);
@@ -244,9 +247,38 @@ seleccionarMetodoPago(metodo: string): void {
           this.mostrarError("Ningun producto añadido", "Accion inválida");
         }
       );
+    }else{
 
+      this._ventasService.editarVenta(this.id,nuevaVenta).subscribe(
+        data => {
+          console.log(data);
+          this.obtenerVentas();
+          this.mostrarCambioVenta = false;
+          this.botonContinuarDeshabilitado = true;
+          this.nombreCliente = "";
+          this.id = 0;
+          this.editingVentaIndex=null;
+
+      this.mostrarSatisfaccion("Venta editada con éxito", "Venta editada");
+      this.listaPedidos=[];
+      this.total=0;
+      this.inputsDeshabilitados = false;
+      this.isVentaRegistrable = false;
+    
+
+      this.closeModal();
+      this.isVisible.elemento1=true;
+        },
+        error => {
+          console.error('Error', error);
+          this.mostrarError("Ningun producto añadido", "Accion inválida");
+        }
+      );
+    }
 
   }
+
+
 
   actualizarStock(ids :(string|undefined) [],  stocks:number[]){
     this._productosService.actualizarStock(ids, stocks).subscribe(data=>{},
@@ -287,32 +319,39 @@ seleccionarMetodoPago(metodo: string): void {
   mostrarBoleta(nombreCliente: string, montoEntregado: number) {
     const pdf = new jsPDF();
   
-    // Encabezado
-    pdf.setFontSize(20);
+    // Encabezado con fondo
+    pdf.setFillColor(0, 123, 255); // Azul
+    pdf.rect(0, 0, 210, 30, 'F'); // Fondo completo
+    pdf.setFont('helvetica', 'bold');
+    pdf.setTextColor(255, 255, 255); // Texto blanco
+    pdf.setFontSize(18);
     pdf.text('Fruton', 105, 15, { align: 'center' });
+  
     pdf.setFontSize(12);
     pdf.text('Boleta de Venta', 105, 25, { align: 'center' });
-    pdf.setFontSize(10);
   
-    // Fecha de venta
+    // Fecha y Cliente
     const fechaVenta = new Date().toLocaleString();
-    pdf.text(`Fecha: ${fechaVenta}`, 10, 35);
-  
-    // Información del cliente
+    pdf.setTextColor(0, 0, 0); // Texto negro
+    pdf.setFontSize(10);
+    pdf.text(`Fecha: ${fechaVenta}`, 10, 40);
     pdf.text(`Cliente: ${nombreCliente}`, 10, 45);
   
-    // Tabla de productos
-    let startY = 55;
-    pdf.setFontSize(12);
-    pdf.text('Detalle de Productos:', 10, startY);
+    // Línea separadora
+    pdf.setDrawColor(0);
+    pdf.line(10, 50, 200, 50); // Línea horizontal
   
-    startY += 10;
-    pdf.setFontSize(10);
+    // Tabla de productos - Títulos
+    let startY = 55;
+    pdf.setFontSize(11);
+    pdf.setFont('helvetica', 'bold');
     pdf.text('Producto', 10, startY);
     pdf.text('Precio (S/.)', 80, startY, { align: 'right' });
     pdf.text('Cantidad', 120, startY, { align: 'right' });
     pdf.text('Subtotal (S/.)', 160, startY, { align: 'right' });
   
+    // Cuerpo de la tabla
+    pdf.setFont('helvetica', 'normal');
     this.listaPedidos.forEach((producto) => {
       startY += 7;
       pdf.text(producto.nombre, 10, startY);
@@ -321,18 +360,56 @@ seleccionarMetodoPago(metodo: string): void {
       pdf.text((producto.precio * producto.cantidad).toFixed(2), 160, startY, { align: 'right' });
     });
   
-
-    
+    // Línea separadora antes del total
+    startY += 10;
+    pdf.line(10, startY, 200, startY);
+  
     // Información del total
-    startY += 15;
+    startY += 10;
+    pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(12);
     pdf.text(`Total: S/. ${this.total.toFixed(2)}`, 10, startY);
-    pdf.text(`Metodo pago : yape`, 10, startY + 5);
-    pdf.text(`Vuelto: S/. ${this.vuelto.toFixed(2)}`, 10, startY + 10);
+    pdf.text(`Método de Pago: ${this.metodoPago}`, 10, startY + 7);
+    pdf.text(`Vuelto: S/. ${this.vuelto.toFixed(2)}`, 10, startY + 14);
   
-    // Descargar el PDF o mostrarlo en el navegador
+    // Pie de página
+    pdf.setFillColor(0, 123, 255);
+    pdf.rect(0, 280, 210, 10, 'F'); // Fondo en el pie
+    pdf.setFontSize(10);
+    pdf.setTextColor(255, 255, 255);
+    pdf.text('Gracias por su compra en Fruton', 105, 285, { align: 'center' });
+  
+    // Descargar PDF
     pdf.save(`Boleta_${nombreCliente}_${fechaVenta}.pdf`);
   }
+  
+
+
+  id:number|undefined = undefined;
+  editingVentaIndex: number | null = null; 
+  mostrarCambioVenta: boolean = false;
+  botonContinuarDeshabilitado: boolean = true
+  nombreCliente: string="";
+
+seleccionarVentaParaEditar(index: number, _id:number|undefined, cliente:string) {
+  this.id = _id;
+  this.editingVentaIndex = index;  
+  this.mostrarCambioVenta = true;
+  this.botonContinuarDeshabilitado = false;
+  this.nombreCliente = cliente;
+  const venta = this.listVentas[index]; 
+
+  this.listaPedidos = venta.productos.map((producto, i) => ({
+    ...producto,
+    cantidad: venta.cantidades[i]
+    
+  }));
+  console.log(this.listaPedidos);
+  this.total = venta.precioTotal;
+
+}
+
+
   
 
 

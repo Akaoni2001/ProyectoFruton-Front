@@ -18,4 +18,9 @@ export class VentaService {
   addVenta(venta: Venta): Observable<Venta> {
     return this.http.post<Venta>(`${this.url}/registrar`, venta);
   }
+
+  editarVenta(id:number|undefined,venta:Venta):Observable<any>{
+    return this.http.put(`${this.url}/${id}`, venta);
+  }
+
 }

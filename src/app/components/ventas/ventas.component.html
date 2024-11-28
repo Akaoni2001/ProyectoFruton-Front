@@ -28,49 +28,49 @@
         </div>
 
 
-        <div class="p2">                         
-          <div class="btn btn-danger" (click)="abrirModal()">Continuar</div>
+        <div class="p2">
+          <div class="btn btn-danger" (click)="abrirModal()" *ngIf="botonContinuarDeshabilitado">Continuar</div>
+          <div class="btn btn-warning mt-2" *ngIf="mostrarCambioVenta"  (click)="abrirModal()">
+            Cambio Venta
+          </div>
         </div>
 
 
-
-        <!--modal-->
+        <!--Modal Venta Final-->
         <div class="modal-overlay" *ngIf="isVisible.elemento2"></div>
         <div *ngIf="isVisible.elemento2" class="modalVuelto" style="z-index: 20;">
 
           <p>Cliente:</p>
-          <input #cliente type="text" placeholder="Cliente" class="col-md-6" style="margin:10px;">
+          <input #cliente type="text" placeholder="Cliente" class="col-md-6" value={{nombreCliente}} style="margin:10px;">
           <!-- Mostrar el precio -->
           <p>Precio: {{ total | currency:'S/.':'symbol':'1.2-2'}}</p>
 
           <!-- Campo para ingresar el monto entregado -->
           <label for="montoEntregado">Monto entregado:</label>
-<input type="number" #monto (input)="verificarMonto(monto.value)" [disabled]="inputsDeshabilitados" />
-<div class="btn btn-success" (click)="calcularVuelto(monto.value)" [class.disabled]="inputsDeshabilitados"> Calcular </div>
+          <input type="number" #monto (input)="verificarMonto(monto.value)" [disabled]="inputsDeshabilitados" />
+          <div class="btn btn-success" (click)="calcularVuelto(monto.value)" [class.disabled]="inputsDeshabilitados">
+            Calcular </div>
 
-<div style="display: flex; flex-flow: row wrap; justify-content: center; width: 100%;">
-  <div>
-    <img src="/assets/fotos/yapelogo.png" alt="yape" width="80px" style="cursor: pointer;"
-      (click)="seleccionarMetodoPago('Yape')">
-  </div>
-  <div>
-    <img src="/assets/fotos/plinLogo.jpg" alt="plin" width="80px" style="cursor: pointer;"
-      (click)="seleccionarMetodoPago('Plin')">
-  </div>
-</div>
+          <div style="display: flex; flex-flow: row wrap; justify-content: center; width: 100%;">
+            <div>
+              <img src="/assets/fotos/yapelogo.png" alt="yape" width="80px" style="cursor: pointer;"
+                (click)="seleccionarMetodoPago('Yape')">
+            </div>
+            <div>
+              <img src="/assets/fotos/plinLogo.jpg" alt="plin" width="80px" style="cursor: pointer;"
+                (click)="seleccionarMetodoPago('Plin')">
+            </div>
+          </div>
 
-<!-- Mostrar el vuelto calculado -->
-<p>Vuelto: {{ vuelto | currency:'S/.':'symbol':'1.2-2' }}</p>
+          <!-- Mostrar el vuelto calculado -->
+          <p>Vuelto: {{ vuelto | currency:'S/.':'symbol':'1.2-2' }}</p>
 
-<!-- Botón para cerrar el modal -->
-<button class="btn btn-success" (click)="registrarVenta(cliente.value)" [disabled]="!isVentaRegistrable">
-  Registrar Venta
-</button>
+          <!-- Botón para cerrar el modal -->
+          <button class="btn btn-success" (click)="registrarVenta(cliente.value)" [disabled]="!isVentaRegistrable">
+            Registrar Venta
+          </button>
           <div class="btn btn-success" (click)="closeModal()" style=" margin-left: 10px;">Cancelar</div>
         </div>
-
-
-
 
 
       </div>
@@ -115,6 +115,7 @@
             <th scope="col">Cliente</th>
             <th scope="col">Precio Total</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -124,6 +125,11 @@
               <td>{{ventas.fechaVenta | date:'MM-dd-HH:mm'}}</td>
               <td>{{ventas.nombreCliente}}</td>
               <td>{{ventas.precioTotal}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm" (click)="seleccionarVentaParaEditar(i, ventas._id, ventas.nombreCliente)">
+                  Cambio
+                </button>
+              </td>
               <td>
                 <i class="fa-solid fa-caret-down" (click)="toggleRow(i)" style="cursor: pointer; font-size: 25px;"></i>
               </td>
