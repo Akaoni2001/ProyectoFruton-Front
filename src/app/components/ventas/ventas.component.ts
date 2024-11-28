@@ -7,6 +7,7 @@ import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { ToastrService } from 'ngx-toastr';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import jsPDF from 'jspdf';
 
 @Component({
@@ -26,7 +27,7 @@ import jsPDF from 'jspdf';
   ]
 })
 export class VentasComponent {
-
+  notaCreditoForm: FormGroup;
   isVentaRegistrable = false;
 
   isVisible = {
@@ -46,12 +47,86 @@ export class VentasComponent {
   brillo: number=1;
   ;
 
-  constructor(
+  constructor(private fb: FormBuilder,
     private _ventasService: VentaService,
     private _productosService: ProductoService,
     private _categoriaService: CategoriaService,
     private toastr: ToastrService
-  ) { }
+  ) { this.notaCreditoForm = this.fb.group({
+    cliente: [''],
+    monto: [''],
+    descripcion: ['']
+  });}
+
+  generarNota(){
+    const formData = this.notaCreditoForm.value;
+
+    const doc = new jsPDF();
+
+    // Título con diseño
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.text('Fruton', 105, 20, { align: 'center' });
+
+    doc.setFontSize(16);
+    doc.text('Nota de Crédito', 105, 30, { align: 'center' });
+
+    // Línea separadora
+    doc.setLineWidth(0.5);
+    doc.line(10, 35, 200, 35);
+
+    // Cuerpo con cuadro
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(12);
+
+    doc.text('Nombre del Cliente:', 15, 50);
+    doc.text(formData.cliente || 'N/A', 80, 50);
+
+    doc.text('Monto:', 15, 60);
+    const montoFormateado = `S/ ${(formData.monto || 0).toFixed(2)}`; 
+    doc.text(montoFormateado, 80, 60);
+
+    doc.text('Descripción:', 15, 70);
+    doc.text(formData.descripcion || 'Sin descripción', 15, 80, { maxWidth: 180 });
+
+    // Cuadro decorativo
+    doc.rect(10, 40, 190, 50);
+
+    // Línea inferior
+    doc.line(10, 100, 200, 100);
+
+    // Pie de página
+    doc.setFontSize(10);
+    doc.text('Gracias por elegir Fruton. Estamos para servirle.', 105, 110, { align: 'center' });
+
+    doc.save('nota-de-credito.pdf');
+  
+    // Cerrar el modal manipulando el DOM
+    const modal = document.getElementById('notaCreditoModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+
+    // Limpiar el formulario
+    this.notaCreditoForm.reset();
+
+  }
+
+
+  abrirModalNota() {
+    const modal = document.getElementById('notaCreditoModal');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalNota() {
+    const modal = document.getElementById('notaCreditoModal');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
 
   ngOnInit(): void {
     this.obtenerProductos();
@@ -315,7 +390,6 @@ seleccionarMetodoPago(metodo: string): void {
     return this.expandedRows.has(index);
   }
 
-
   mostrarBoleta(nombreCliente: string, montoEntregado: number) {
     const pdf = new jsPDF();
   
@@ -349,28 +423,48 @@ seleccionarMetodoPago(metodo: string): void {
     pdf.text('Precio (S/.)', 80, startY, { align: 'right' });
     pdf.text('Cantidad', 120, startY, { align: 'right' });
     pdf.text('Subtotal (S/.)', 160, startY, { align: 'right' });
+    pdf.text('IGV (S/.)', 180, startY, { align: 'right' });
   
     // Cuerpo de la tabla
     pdf.setFont('helvetica', 'normal');
+    let totalSinIgv = 0; // Acumulador de total sin IGV
     this.listaPedidos.forEach((producto) => {
+      const subtotal = producto.precio * producto.cantidad;
+      const igvProducto = subtotal * 0.18; // Calculamos el IGV por producto
+      const subtotalConIgv = subtotal + igvProducto;
+  
       startY += 7;
       pdf.text(producto.nombre, 10, startY);
       pdf.text(producto.precio.toFixed(2), 80, startY, { align: 'right' });
       pdf.text(producto.cantidad.toString(), 120, startY, { align: 'right' });
-      pdf.text((producto.precio * producto.cantidad).toFixed(2), 160, startY, { align: 'right' });
+      pdf.text(subtotal.toFixed(2), 160, startY, { align: 'right' });
+      pdf.text(igvProducto.toFixed(2), 180, startY, { align: 'right' });
+  
+      totalSinIgv += subtotal; // Acumulamos el total sin IGV
     });
   
     // Línea separadora antes del total
     startY += 10;
     pdf.line(10, startY, 200, startY);
   
+    // Cálculo del IGV total
+    const igvTotal = totalSinIgv * 0.18;
+    const totalConIgv = totalSinIgv + igvTotal;
+  
     // Información del total
     startY += 10;
     pdf.setFont('helvetica', 'bold');
     pdf.setFontSize(12);
-    pdf.text(`Total: S/. ${this.total.toFixed(2)}`, 10, startY);
-    pdf.text(`Método de Pago: ${this.metodoPago}`, 10, startY + 7);
-    pdf.text(`Vuelto: S/. ${this.vuelto.toFixed(2)}`, 10, startY + 14);
+    pdf.text(`Total (sin IGV): S/. ${totalSinIgv.toFixed(2)}`, 10, startY);
+    startY += 7;
+    pdf.text(`IGV (18%): S/. ${igvTotal.toFixed(2)}`, 10, startY);
+    startY += 7;
+    pdf.text(`Total con IGV: S/. ${totalConIgv.toFixed(2)}`, 10, startY);
+  
+    // Método de Pago y Vuelto
+    startY += 14;
+    pdf.text(`Método de Pago: ${this.metodoPago}`, 10, startY);
+    pdf.text(`Vuelto: S/. ${this.vuelto.toFixed(2)}`, 10, startY + 7);
   
     // Pie de página
     pdf.setFillColor(0, 123, 255);

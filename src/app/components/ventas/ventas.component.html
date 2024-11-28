@@ -106,7 +106,13 @@
 
     </div>
     <div class="vistaVentas">
-      <h1>Ventas del dia</h1>
+      <h1>Ventas del dia</h1> 
+      <button 
+      class="btn btn-primary mt-3" 
+      (click)="abrirModalNota()">
+      Nota de Crédito
+    </button>
+  
       <table class="table" style="text-align: center;">
         <thead>
           <tr>
@@ -154,8 +160,27 @@
         </tbody>
       </table>
 
+
+<!-- Modal -->
+<div id="notaCreditoModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);">
+  <div style="background: #fff; margin: 10% auto; padding: 20px; width: 40%; border-radius: 10px;">
+    <h3>Generar Nota de Crédito</h3>
+    <form [formGroup]="notaCreditoForm">
+      <label>Nombre del Cliente:</label>
+      <input formControlName="cliente" type="text" />
+      <br />
+      <label>Monto:</label>
+      <input formControlName="monto" type="number" />
+      <br />
+      <label>Descripción:</label>
+      <textarea formControlName="descripcion"></textarea>
+      <br />
+      <button type="button" (click)="generarNota()">Generar Nota</button>
+      <button type="button" (click)="cerrarModalNota()">Cerrar</button>
+    </form>
+  </div>
+</div>
+  
     </div>
 
   </div>
-
-</div>

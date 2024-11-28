@@ -9,6 +9,20 @@
     display: flex;
     flex-flow: row wrap;
 }
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
 
 .modal-overlay {
     position: fixed;
@@ -19,6 +33,8 @@
     background-color: rgba(0, 0, 0, 0.6); /* Oscurece el fondo */
     z-index: 10; /* Coloca el fondo oscuro detrás del modal */
   }
+  
+
   
 
 .listaVenta{
@@ -339,3 +355,105 @@
   }
   
 
+/* Fondo oscuro del modal */
+#notaCreditoModal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo translúcido */
+    z-index: 1000; /* Encima de todo */
+  }
+  
+  /* Contenedor del contenido del modal */
+  #notaCreditoModal > div {
+    background: #fff;
+    margin: 10% auto;
+    padding: 20px 30px;
+    width: 40%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease;
+    text-align: left;
+  }
+  
+  /* Título del modal */
+  #notaCreditoModal h3 {
+    font-size: 24px;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Etiquetas */
+  #notaCreditoModal label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* Campos de entrada */
+  #notaCreditoModal input,
+  #notaCreditoModal textarea {
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  #notaCreditoModal input:focus,
+  #notaCreditoModal textarea:focus {
+    border-color: #007bff;
+  }
+  
+  /* Botones */
+  #notaCreditoModal button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  #notaCreditoModal button[type="button"]:first-child {
+    background: #007bff;
+    color: #fff;
+  }
+  
+  #notaCreditoModal button[type="button"]:first-child:hover {
+    background: #0056b3;
+  }
+  
+  #notaCreditoModal button[type="button"]:last-child {
+    background: #dc3545;
+    color: #fff;
+  }
+  
+  #notaCreditoModal button[type="button"]:last-child:hover {
+    background: #a71d2a;
+  }
+  
+  /* Animación de apertura */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  
