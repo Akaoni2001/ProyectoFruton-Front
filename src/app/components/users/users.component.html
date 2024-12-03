@@ -25,7 +25,7 @@
                                 <td>{{ usuario.email}}</td>
                                 <td>{{ usuario.role}}</td>
                                 <td>
-                                    <i [routerLink]="['/editar-producto', usuario._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
+                                    <i [routerLink]="['/editar-usuario', usuario._id]" class="fas fa-solid fa-pen-to-square text-primary"></i>
                                     <i (click)="eliminarUser(usuario._id)" class="fas fa-solid fa-trash text-danger"></i>
                                 </td>
                               </tr>
