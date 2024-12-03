@@ -8,7 +8,7 @@ import { Rol } from '../models/rol';
 })
 export class RolService {
 
-  url = 'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/roles'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/categorias' o 'http://localhost:4000/api/categorias'
+  url = 'http://localhost:4000/api/roles'//'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/roles'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/categorias' o 'http://localhost:4000/api/categorias'
 
   constructor(private http:HttpClient) { }
   

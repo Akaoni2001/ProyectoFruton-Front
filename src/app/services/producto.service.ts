@@ -8,7 +8,7 @@ import { Producto } from '../models/producto';
 })
 export class ProductoService {
 
-  url='https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/productos'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/productos' o 'http://localhost:4000/api/productos'
+  url='http://localhost:4000/api/productos' //'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/productos'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/productos' o 'http://localhost:4000/api/productos'
 
   constructor(private http: HttpClient) { }
 
