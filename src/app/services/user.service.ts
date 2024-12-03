@@ -9,7 +9,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  url = 'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/users'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/users' o 'http://localhost:4000/api/users'
+  url = 'http://localhost:4000/api/users'//'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/users'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/users' o 'http://localhost:4000/api/users'
 
 
   constructor(private http: HttpClient) { }

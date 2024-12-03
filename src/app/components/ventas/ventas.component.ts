@@ -112,7 +112,6 @@ export class VentasComponent {
 
   }
 
-
   abrirModalNota() {
     const modal = document.getElementById('notaCreditoModal');
     if (modal) {

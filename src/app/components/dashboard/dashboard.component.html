@@ -1,7 +1,23 @@
 <div class="app-container">
     <app-sidenav></app-sidenav>
     <div class="main-content">
-         
+    <!-- Cuadros de métricas clave -->
+    <div class="key-metrics">
+        <div class="metric-card">
+        <h3>{{ ordenesDia }}</h3>
+        <p>Órdenes del día</p>
+        </div>
+        <div class="metric-card income">
+        <h3>S/ {{ montoTotalVenta }}</h3>
+        <p>Ingreso del día</p>
+        </div>>
     </div>
+
+    <!-- Tabla de ingresos por mes -->
+    <div class="table-section">
+        <h2>Ingresos por Mes</h2>
+        <canvas id="monthlyChart"></canvas>
+    </div>
+
 </div>
 
