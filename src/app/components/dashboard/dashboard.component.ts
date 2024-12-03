@@ -61,6 +61,8 @@ export class DashboardComponent {
       this.listVentas = data;
       this.sumarVentasPorMes(),
       this.initializeChart();
+      this.obtenerVentasDelDiaActual();
+      this.obtenerIngresosDelDiaActual();
     }, error => {
       console.log(error);
     });
@@ -88,5 +90,37 @@ export class DashboardComponent {
      console.log(this.meses)
      console.log(this.total)
   }
+
+  obtenerVentasDelDiaActual() {
+    const hoy = new Date();
+    const fechaActual = `${hoy.getFullYear()}-${(hoy.getMonth() + 1).toString().padStart(2, '0')}-${hoy.getDate().toString().padStart(2, '0')}`;
+
+    // Filtrar las ventas del día actual
+    const ventasDelDia = this.listVentas.filter(venta => {
+      const fechaVenta = new Date(venta.fechaVenta);
+      const fechaVentaFormateada = `${fechaVenta.getFullYear()}-${(fechaVenta.getMonth() + 1).toString().padStart(2, '0')}-${fechaVenta.getDate().toString().padStart(2, '0')}`;
+      return fechaVentaFormateada === fechaActual;
+    });
+
+    // Retornar la cantidad de ventas del día actual
+    this.ordenesDia= ventasDelDia.length;
+  }
+
+  obtenerIngresosDelDiaActual() {
+    const hoy = new Date();
+    const fechaActual = `${hoy.getFullYear()}-${(hoy.getMonth() + 1).toString().padStart(2, '0')}-${hoy.getDate().toString().padStart(2, '0')}`;
+  
+    // Filtrar las ventas del día actual y calcular los ingresos
+    const ingresosDelDia = this.listVentas
+      .filter(venta => {
+        const fechaVenta = new Date(venta.fechaVenta);
+        const fechaVentaFormateada = `${fechaVenta.getFullYear()}-${(fechaVenta.getMonth() + 1).toString().padStart(2, '0')}-${fechaVenta.getDate().toString().padStart(2, '0')}`;
+        return fechaVentaFormateada === fechaActual;
+      })
+      .reduce((total, venta) => total + venta.precioTotal, 0);
+  
+    this.montoTotalVenta = ingresosDelDia;
+  }
+
 
 }
