@@ -42,6 +42,7 @@ const routes: Routes = [
   {path:'crear-tipoproducto', component:CrearTipoproductoComponent,canActivate: [AuthGuard]},
   {path:'pedidos', component:PedidosComponent,canActivate: [AuthGuard]},
   {path:'stock-categoria', component:StockCategoriaComponent,canActivate: [AuthGuard]},
+  {path:'editar-usuario/:id', component:CrearUsuarioComponent,canActivate: [AuthGuard]},
   
   {path:'modales', component:ModalesComponent},
   {path:'**', redirectTo: '', pathMatch: 'full'}

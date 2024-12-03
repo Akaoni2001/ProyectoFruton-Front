@@ -9,7 +9,7 @@ import { User } from '../models/user';
 })
 export class UserService {
 
-  url = 'http://localhost:4000/api/users'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/users' o 'http://localhost:4000/api/users'
+  url = 'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/users'; //'https://solid-enigma-49995v4wrrph7vx7-4000.app.github.dev/api/users' o 'http://localhost:4000/api/users'
 
 
   constructor(private http: HttpClient) { }
@@ -39,5 +39,13 @@ export class UserService {
       .set('Content-Type', 'application/json')
       .set('Authorization', `Bearer ${token}`);
     return this.http.post(`${this.url}/registrar`, data, { headers });
+  }
+  getUserById(id: string): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.get(`${this.url}/usuario/${id}`, { headers });
+  }
+  editar(id: string, data: any): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put(`${this.url}/usuario/editar/${id}`, data, { headers });
   }
 }
