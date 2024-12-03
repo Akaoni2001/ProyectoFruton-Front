@@ -9,6 +9,20 @@
     display: flex;
     flex-flow: row wrap;
 }
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
 
 .modal-overlay {
     position: fixed;
@@ -19,6 +33,8 @@
     background-color: rgba(0, 0, 0, 0.6); /* Oscurece el fondo */
     z-index: 10; /* Coloca el fondo oscuro detrás del modal */
   }
+  
+
   
 
 .listaVenta{
@@ -242,3 +258,202 @@
 
 
 
+/* Estilos para el fondo del modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 10;
+  }
+  
+  /* Estilos para el contenedor del modal */
+  .modalVuelto {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff; /* Fondo blanco */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06); /* Sombras suaves */
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    z-index: 20;
+    text-align: center;
+  }
+  
+  /* Estilos para los elementos de texto */
+  .modalVuelto p {
+    font-size: 19px;
+    font-weight: 600;
+    color: #333333;
+    margin: 10px 0;
+  }
+  
+  /* Estilos para el input */
+  .modalVuelto input[type="text"],
+  .modalVuelto input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .modalVuelto input[type="text"]:focus,
+  .modalVuelto input[type="number"]:focus {
+    border-color: #135cd1;
+  }
+  
+  /* Estilos para los botones */
+  .modalVuelto .btn {
+    display: inline-block;
+    background-color: #135cd1; /* Verde moderno */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modalVuelto .btn:hover {
+    background-color: #0d4298;
+  }
+  
+  .modalVuelto .btn.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Estilos para las imágenes de los métodos de pago */
+  .modalVuelto img {
+    margin: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .modalVuelto img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilo para el botón "Cancelar" */
+  .modalVuelto .btn:nth-child(2) {
+    background-color: #d9534f; /* Rojo moderno */
+  }
+  
+  .modalVuelto .btn:nth-child(2):hover {
+    background-color: #c9302c;
+  }
+  
+
+/* Fondo oscuro del modal */
+#notaCreditoModal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo translúcido */
+    z-index: 1000; /* Encima de todo */
+  }
+  
+  /* Contenedor del contenido del modal */
+  #notaCreditoModal > div {
+    background: #fff;
+    margin: 10% auto;
+    padding: 20px 30px;
+    width: 40%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.3s ease;
+    text-align: left;
+  }
+  
+  /* Título del modal */
+  #notaCreditoModal h3 {
+    font-size: 24px;
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Etiquetas */
+  #notaCreditoModal label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* Campos de entrada */
+  #notaCreditoModal input,
+  #notaCreditoModal textarea {
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  #notaCreditoModal input:focus,
+  #notaCreditoModal textarea:focus {
+    border-color: #007bff;
+  }
+  
+  /* Botones */
+  #notaCreditoModal button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+    transition: background 0.3s ease;
+  }
+  
+  #notaCreditoModal button[type="button"]:first-child {
+    background: #007bff;
+    color: #fff;
+  }
+  
+  #notaCreditoModal button[type="button"]:first-child:hover {
+    background: #0056b3;
+  }
+  
+  #notaCreditoModal button[type="button"]:last-child {
+    background: #dc3545;
+    color: #fff;
+  }
+  
+  #notaCreditoModal button[type="button"]:last-child:hover {
+    background: #a71d2a;
+  }
+  
+  /* Animación de apertura */
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  
