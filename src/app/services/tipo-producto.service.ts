@@ -8,7 +8,7 @@ import { TipoProducto } from '../models/tipo-producto';
 })
 export class TipoProductoService {
   
-  url='https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/tipo-producto';
+  url='https://curly-robot-rvvvq69p6wpf59xv-4000.app.github.dev/api/tipo-producto';
 
   constructor(private http: HttpClient) { }
 

@@ -8,7 +8,7 @@ import { Imagen } from '../models/image';
 })
 export class ImageUpService {
 
-  url = 'http://localhost:4000/api/image/upload';  
+  url = 'https://curly-robot-rvvvq69p6wpf59xv-4000.app.github.dev/api/image/upload';  
 
   constructor(private http: HttpClient) { }
 

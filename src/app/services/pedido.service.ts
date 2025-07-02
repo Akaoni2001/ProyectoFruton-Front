@@ -8,7 +8,7 @@ import { Pedido } from '../models/pedido';
 })
 export class PedidoService {
 
-  url = 'http://localhost:4000/api/pedidos'//'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/pedidos'; 
+  url = 'https://curly-robot-rvvvq69p6wpf59xv-4000.app.github.dev/api/pedidos'//'https://organic-space-halibut-6777q564w55hrj4v-4000.app.github.dev/api/pedidos'; 
 
     constructor(private http: HttpClient) { }
 

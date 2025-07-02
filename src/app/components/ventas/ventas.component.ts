@@ -429,8 +429,8 @@ seleccionarMetodoPago(metodo: string): void {
     let totalSinIgv = 0; // Acumulador de total sin IGV
     this.listaPedidos.forEach((producto) => {
       const subtotal = producto.precio * producto.cantidad;
-      const igvProducto = subtotal * 0.18; // Calculamos el IGV por producto
-      const subtotalConIgv = subtotal + igvProducto;
+      const precioSinIGV = subtotal / 1.18;
+      const igvProducto = subtotal - precioSinIGV;
   
       startY += 7;
       pdf.text(producto.nombre, 10, startY);
@@ -439,7 +439,7 @@ seleccionarMetodoPago(metodo: string): void {
       pdf.text(subtotal.toFixed(2), 160, startY, { align: 'right' });
       pdf.text(igvProducto.toFixed(2), 180, startY, { align: 'right' });
   
-      totalSinIgv += subtotal; // Acumulamos el total sin IGV
+      totalSinIgv += precioSinIGV; // Acumulamos el total sin IGV
     });
   
     // Línea separadora antes del total
